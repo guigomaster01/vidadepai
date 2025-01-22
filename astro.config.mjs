@@ -6,7 +6,7 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://guigomaster01.github.io',
-	base: 'vidadepai',
+	base: '/vidadepai',
 	integrations: [mdx(), sitemap()],
 
 });
