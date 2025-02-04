@@ -5,12 +5,13 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 
-type Props = CollectionEntry<'blog'>['data'];
-
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+
+const pageUrl = typeof window !== 'undefined' ? window.location.href : '';
+const shareText = encodeURIComponent(`${title} - ${description}`);
 ---
 
-<html lang="en">
+<html lang="pt-BR">
 	<head>
 		<BaseHead title={title} description={description} />
 		<style>
@@ -51,6 +52,35 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			.last-updated-on {
 				font-style: italic;
 			}
+			.share-buttons {
+				margin-top: 20px;
+				display: flex;
+				justify-content: center;
+				gap: 10px;
+			}
+			.share-buttons a {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				padding: 8px 12px;
+				border-radius: 6px;
+				text-decoration: none;
+				color: white;
+				font-size: 14px;
+				transition: 0.3s;
+			}
+			.whatsapp {
+				background-color: #25D366;
+			}
+			.facebook {
+				background-color: #1877F2;
+			}
+			.instagram {
+				background-color: #E4405F;
+			}
+			.share-buttons a:hover {
+				opacity: 0.8;
+			}
 		</style>
 	</head>
 
@@ -77,6 +107,13 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 						<hr />
 					</div>
 					<slot />
+
+					<!-- Botões de Compartilhamento -->
+					<div class="share-buttons">
+						<a class="whatsapp" href={`https://api.whatsapp.com/send?text=${shareText}%20${pageUrl}`} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+						<a class="facebook" href={`https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`} target="_blank" rel="noopener noreferrer">Facebook</a>
+						<a class="instagram" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
+					</div>
 				</div>
 			</article>
 		</main>
