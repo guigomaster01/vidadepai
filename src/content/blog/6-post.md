@@ -1,7 +1,7 @@
 ---
 title: 'Por que Sorocaba é a cidade ideal para criar filhos em 2025?'
 description: 'A melhor cidade para se morar no Brasil'
-pubDate: 'Fev 03 2025'
+pubDate: '2025-02-03'
 heroImage: '/6-post.jpg'
 ---
 <p style="text-align:justify">
