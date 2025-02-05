@@ -1,20 +1,79 @@
 ---
 import Layout from '../layouts/BlogPost.astro';
+
+const livros = [
+	{
+		nome: "As primeiras quatro estações: vivendo a maternidade",
+		link: "https://amzn.to/4h0X01N",
+		imagem: "/livro_AsPrimeirasQuatroEstacoes.jpg"
+		},
+	{
+		nome: "Maternidade Sem Culpa",
+		link: "https://amzn.to/40Cj2lF",
+		imagem: "/livro_MaternidadeSemCulpa.jpg"
+	},
+	{
+		nome: "Mãe recem-nascida",
+		link: "https://amzn.to/4g7tFRM",
+		imagem: "/livro_MaeRecemNascida.jpg"
+	}
+
+];
 ---
 
 <Layout
 	title="Livros"
-	description="Vida de pai não é facil..."
+	description="Vida de pai não é fácil..."
 	pubDate={new Date('Janeiro 19 2025')}
 	heroImage="/livros.jpg"
 >
-	<p>
-		Os links abaixo são todos os livros que indico você ler ou presentear quem você tanto ama:
-		<br>
-			1. <a href="https://amzn.to/4h0X01N" target="_blank">As primeiras quatro estações: vivendo a maternidade</a><br>
-			2. <a href="https://amzn.to/40Cj2lF" target="_blank">Maternidade Sem Culpa</a><br>
-			3. <a href="https://amzn.to/4g7tFRM" target="_blank">Mãe recem-nascida</a><br>
-			
-	</p>
+	<p>Os links abaixo são todos os livros que indico para você ter ou presentear quem você tanto ama:</p>
+	
+	<div class="livros-container">
+		{livros.map((livro) => (
+			<div class="livros">
+				<a href={livro.link} target="_blank">
+					<img src={livro.imagem} alt={livro.nome} />
+					<p>{livro.nome}</p>
+				</a>
+			</div>
+		))}
+	</div>
 
+	<style>
+		.livros-container {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 16px;
+			justify-content: center;
+			margin-top: 20px;
+		}
+
+		.livros {
+			width: 200px;
+			text-align: center;
+			border: 1px solid #ddd;
+			border-radius: 8px;
+			padding: 10px;
+			box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+			background: white;
+			transition: transform 0.2s ease-in-out;
+		}
+
+		.livros:hover {
+			transform: scale(1.05);
+		}
+
+		.livros img {
+			width: 100%;
+			border-radius: 8px;
+			margin-bottom: 8px;
+		}
+
+		.livros p {
+			font-size: 14px;
+			color: #333;
+			font-weight: bold;
+		}
+	</style>
 </Layout>

@@ -1,23 +1,94 @@
 ---
 import Layout from '../layouts/BlogPost.astro';
+
+const produtos = [
+	{
+		nome: "Blusa feminina de amamentação macia para maternidade - Ekouaer",
+		link: "https://amzn.to/3WJyFFq",
+		imagem: "/blusa-amamentacao.jpg"
+		},
+	{
+		nome: "Canguru para pais",
+		link: "https://amzn.to/4aGkQgV",
+		imagem: "/canguru.jpg"
+	},
+	{
+		nome: "Termômetro Infravermelho 3 em 1 - Dellamed",
+		link: "https://amzn.to/4aLE3gY",
+		imagem: "/termometro.jpg"
+	},
+	{
+		nome: "Esterilizador de mamadeira - Philips",
+		link: "https://amzn.to/4hi8XQT",
+		imagem: "/esterilizador.jpg"
+	},
+	{
+		nome: "Absorventes Para Seios Lavável - Lansinoh",
+		link: "https://amzn.to/4jGnQxI",
+		imagem: "/absorvente.jpg"
+	},
+	{
+		nome: "Babá eletrônica",
+		link: "https://amzn.to/3Cz2L7P",
+		imagem: "baba-eletronica.jpg"
+	}
+
+];
 ---
 
 <Layout
 	title="Produtos"
-	description="Vida de pai não é facil..."
+	description="Vida de pai não é fácil..."
 	pubDate={new Date('Janeiro 19 2025')}
 	heroImage="/produtos.jpg"
 >
-	<p>
-		Os links abaixo são todos os produtos que indico para você ter ou presentear quem você tanto ama:
-		<br>
-			1. <a href="https://amzn.to/3WJyFFq" target="_blank">Blusa feminina de amamentação macia para maternidade - Marca: Ekouaer</a><br>
-			2. <a href="https://amzn.to/4aGkQgV" target="_blank">Canguru para pais</a><br>
-			3. <a href="https://amzn.to/3Cz2L7P" target="_blank">Babá eletrônica</a><br>
-			4. <a href="https://amzn.to/4hi8XQT" target="_blank">Esterilizador de mamadeira - Philips</a><br>
-			5. <a href="https://amzn.to/4jGnQxI" target="_blank">Absorventes Para Seios Lavável Com 4 Unidades Branco - Lansinoh</a><br>
-			6. <a href="https://amzn.to/4aLE3gY" target="_blank">Termômetro Infravermelho 3 em 1 - Dellamed</a><br>
-			
-	</p>
+	<p>Os links abaixo são todos os produtos que indico para você ter ou presentear quem você tanto ama:</p>
+	
+	<div class="produtos-container">
+		{produtos.map((produto) => (
+			<div class="produto">
+				<a href={produto.link} target="_blank">
+					<img src={produto.imagem} alt={produto.nome} />
+					<p>{produto.nome}</p>
+				</a>
+			</div>
+		))}
+	</div>
 
+	<style>
+		.produtos-container {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 16px;
+			justify-content: center;
+			margin-top: 20px;
+		}
+
+		.produto {
+			width: 200px;
+			text-align: center;
+			border: 1px solid #ddd;
+			border-radius: 8px;
+			padding: 10px;
+			box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+			background: white;
+			transition: transform 0.2s ease-in-out;
+		}
+
+		.produto:hover {
+			transform: scale(1.05);
+		}
+
+		.produto img {
+			width: 100%;
+			border-radius: 8px;
+			margin-bottom: 8px;
+		}
+
+		.produto p {
+			font-size: 14px;
+			color: #333;
+			font-weight: bold;
+		}
+	</style>
 </Layout>
