@@ -12,5 +12,5 @@ E aí surge uma pergunta que pesa no coração de muitos pais: será que estou a
 </p>
 <h2>Eu falei o que o Felca não falou</h2>
 <p style="text-align:justify">
-O vídeo está disponivel no meu canal ou através do link: https://www.youtube.com/watch?v=magWBOYJiao
+O vídeo está disponivel no meu canal ou [através do link](https://www.youtube.com/watch?v=magWBOYJiao)
 </p>
