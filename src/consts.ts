@@ -9,6 +9,10 @@ export const CONTACT_EMAIL = 'contato@vidadepai.com.br';
 // Substitua pelo seu ID de publicador quando for aprovado (ex: ca-pub-1234567890123456)
 export const ADSENSE_CLIENT_ID = import.meta.env.PUBLIC_ADSENSE_ID || 'ca-pub-XXXXXXXXXXXXXXXX';
 
+// Web3Forms Configuration (Envio de mensagens de contato direto para o e-mail)
+// Obtenha sua chave gratuitamente em https://web3forms.com
+export const WEB3FORMS_ACCESS_KEY = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY || '';
+
 // Categorias principais do blog
 export const CATEGORIES = [
 	{ name: 'Primeiros Meses', slug: 'primeiros-meses', color: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300' },

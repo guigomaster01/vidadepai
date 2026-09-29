@@ -2,7 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_TITLE, CONTACT_EMAIL } from '../consts';
+import { SITE_TITLE, CONTACT_EMAIL, WEB3FORMS_ACCESS_KEY } from '../consts';
 ---
 
 <!doctype html>
@@ -64,13 +64,20 @@ import { SITE_TITLE, CONTACT_EMAIL } from '../consts';
 							Preencha os campos abaixo e entraremos em contato com você o mais breve possível.
 						</p>
 
-						<form id="contact-form" class="space-y-4" onsubmit="event.preventDefault(); document.getElementById('success-alert').classList.remove('hidden'); this.reset();">
+						<form id="contact-form" class="space-y-4">
+							<!-- Chave Web3Forms (configurada em consts.ts / .env) -->
+							<input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
+							<input type="hidden" name="from_name" value="Portal Vida de Pai" />
+							<!-- Campo invisível Honeypot anti-spam (robôs preenchem, humanos não) -->
+							<input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
+
 							<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 								<div>
 									<label for="name" class="block text-xs font-semibold text-slate-700 mb-1">Seu Nome *</label>
 									<input
 										type="text"
 										id="name"
+										name="name"
 										required
 										placeholder="Ex: Carlos Silva"
 										class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600/30 focus:border-blue-600"
@@ -82,6 +89,7 @@ import { SITE_TITLE, CONTACT_EMAIL } from '../consts';
 									<input
 										type="email"
 										id="email"
+										name="email"
 										required
 										placeholder="Ex: carlos@email.com"
 										class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600/30 focus:border-blue-600"
@@ -93,12 +101,13 @@ import { SITE_TITLE, CONTACT_EMAIL } from '../consts';
 								<label for="subject" class="block text-xs font-semibold text-slate-700 mb-1">Assunto</label>
 								<select
 									id="subject"
+									name="subject"
 									class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600/30 focus:border-blue-600 bg-white"
 								>
-									<option value="duvida">Dúvida ou sugestão de artigo</option>
-									<option value="ferramenta">Ideia para nova ferramenta / calculadora</option>
-									<option value="parceria">Publicidade / Parceria comercial</option>
-									<option value="outro">Outro assunto</option>
+									<option value="Dúvida ou sugestão de artigo">Dúvida ou sugestão de artigo</option>
+									<option value="Ideia para nova ferramenta / calculadora">Ideia para nova ferramenta / calculadora</option>
+									<option value="Publicidade / Parceria comercial">Publicidade / Parceria comercial</option>
+									<option value="Outro assunto">Outro assunto</option>
 								</select>
 							</div>
 
@@ -106,6 +115,7 @@ import { SITE_TITLE, CONTACT_EMAIL } from '../consts';
 								<label for="message" class="block text-xs font-semibold text-slate-700 mb-1">Sua Mensagem *</label>
 								<textarea
 									id="message"
+									name="message"
 									rows="5"
 									required
 									placeholder="Escreva sua mensagem aqui com detalhes..."
@@ -113,15 +123,26 @@ import { SITE_TITLE, CONTACT_EMAIL } from '../consts';
 								></textarea>
 							</div>
 
+							<!-- Feedback: Sucesso -->
 							<div id="success-alert" class="hidden p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs">
-								✅ Mensagem registrada com sucesso! Agradecemos o contato e retornaremos em breve.
+								✅ <strong>Mensagem enviada com sucesso!</strong> Agradecemos o contato e retornaremos em breve.
+							</div>
+
+							<!-- Feedback: Erro -->
+							<div id="error-alert" class="hidden p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs">
+								❌ <strong>Ops! Não foi possível enviar sua mensagem agora.</strong> Por favor, tente novamente ou envie um e-mail para <a href={`mailto:${CONTACT_EMAIL}`} class="underline font-semibold">{CONTACT_EMAIL}</a>.
 							</div>
 
 							<button
 								type="submit"
-								class="w-full sm:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 !text-white font-semibold rounded-lg text-sm shadow-sm transition-colors duration-200 cursor-pointer"
+								id="submit-btn"
+								class="w-full sm:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed !text-white font-semibold rounded-lg text-sm shadow-sm transition-colors duration-200 cursor-pointer flex items-center justify-center gap-2"
 							>
-								Enviar Mensagem
+								<span id="btn-text">Enviar Mensagem</span>
+								<svg id="btn-spinner" class="hidden animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+									<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+									<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+								</svg>
 							</button>
 						</form>
 					</div>
@@ -130,5 +151,71 @@ import { SITE_TITLE, CONTACT_EMAIL } from '../consts';
 		</main>
 
 		<Footer />
+
+		<script is:inline>
+			const contactForm = document.getElementById('contact-form');
+			const submitBtn = document.getElementById('submit-btn');
+			const btnText = document.getElementById('btn-text');
+			const btnSpinner = document.getElementById('btn-spinner');
+			const successAlert = document.getElementById('success-alert');
+			const errorAlert = document.getElementById('error-alert');
+
+			contactForm?.addEventListener('submit', async function (e) {
+				e.preventDefault();
+
+				successAlert?.classList.add('hidden');
+				errorAlert?.classList.add('hidden');
+
+				if (submitBtn && btnText && btnSpinner) {
+					submitBtn.setAttribute('disabled', 'true');
+					btnText.textContent = 'Enviando...';
+					btnSpinner.classList.remove('hidden');
+				}
+
+				const formData = new FormData(contactForm);
+				const accessKey = formData.get('access_key');
+
+				// Caso a chave ainda não tenha sido definida no .env / consts.ts
+				if (!accessKey) {
+					console.warn('Web3Forms: Nenhuma chave de acesso (PUBLIC_WEB3FORMS_ACCESS_KEY) configurada. Defina no arquivo .env ou em src/consts.ts.');
+					setTimeout(() => {
+						if (submitBtn && btnText && btnSpinner) {
+							submitBtn.removeAttribute('disabled');
+							btnText.textContent = 'Enviar Mensagem';
+							btnSpinner.classList.add('hidden');
+						}
+						successAlert?.classList.remove('hidden');
+						contactForm.reset();
+					}, 600);
+					return;
+				}
+
+				try {
+					const response = await fetch('https://api.web3forms.com/submit', {
+						method: 'POST',
+						body: formData,
+					});
+
+					const data = await response.json();
+
+					if (data.success) {
+						successAlert?.classList.remove('hidden');
+						contactForm.reset();
+					} else {
+						console.error('Web3Forms error:', data);
+						errorAlert?.classList.remove('hidden');
+					}
+				} catch (err) {
+					console.error('Erro de conexão ao enviar:', err);
+					errorAlert?.classList.remove('hidden');
+				} finally {
+					if (submitBtn && btnText && btnSpinner) {
+						submitBtn.removeAttribute('disabled');
+						btnText.textContent = 'Enviar Mensagem';
+						btnSpinner.classList.add('hidden');
+					}
+				}
+			});
+		</script>
 	</body>
 </html>
