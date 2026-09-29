@@ -5,110 +5,167 @@ import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import AdSense from '../../components/AdSense.astro';
+import { SITE_DESCRIPTION, SITE_TITLE, CATEGORIES } from '../../consts';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+
+const featuredPost = posts[0];
+const remainingPosts = posts.slice(1);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}
-		</style>
+		<BaseHead
+			title={`Artigos e Guias sobre Paternidade | ${SITE_TITLE}`}
+			description="Navegue por todos os artigos do Vida de Pai: sono, primeiros meses, educação positiva, finanças e dicas práticas."
+		/>
 	</head>
-	<body>
+	<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
 		<Header />
-		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
+
+		<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 flex-1 w-full">
+			<!-- Header da Página -->
+			<div class="mb-10 text-center max-w-2xl mx-auto">
+				<span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+					Conteúdo Prático
+				</span>
+				<h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 mt-3 tracking-tight">
+					Artigos & Guias
+				</h1>
+				<p class="text-sm sm:text-base text-slate-600 mt-3">
+					Experiências reais, dicas comprovadas e orientações para apoiar você em cada fase da criação dos seus filhos.
+				</p>
+			</div>
+
+			<!-- Barra de Categorias -->
+			<div class="flex flex-wrap items-center justify-center gap-2 mb-10 pb-6 border-b border-slate-200">
+				<span class="text-xs font-bold uppercase tracking-wider text-slate-500 mr-2">Temas:</span>
+				{CATEGORIES.map((cat) => (
+					<span class="text-xs px-3.5 py-1.5 rounded-full bg-white text-slate-700 border border-slate-200 hover:border-blue-500 hover:text-blue-700 transition-colors font-medium">
+						{cat.name}
+					</span>
+				))}
+			</div>
+
+			<!-- AdSense Topo do Blog -->
+			<AdSense slotId="2345678901" slotName="Topo do Blog (Leaderboard 728x90)" format="horizontal" minHeight="90px" />
+
+			<!-- Post Destaque Principal -->
+			{featuredPost && (
+				<section class="my-10 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm hover:border-blue-400 transition-all duration-300">
+					<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+						<div class="lg:col-span-7 overflow-hidden rounded-2xl">
+							<a href={`/blog/${featuredPost.id}/`}>
+								{featuredPost.data.heroImage && (
+									<Image
+										width={800}
+										height={450}
+										src={featuredPost.data.heroImage}
+										alt={featuredPost.data.title}
+										class="w-full h-auto max-h-[380px] object-cover hover:scale-102 transition-transform duration-300"
+									/>
+								)}
+							</a>
+						</div>
+
+						<div class="lg:col-span-5 space-y-4">
+							<div class="flex items-center gap-2">
+								<span class="text-[11px] font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
+									Destaque
+								</span>
+								<span class="text-xs font-bold uppercase tracking-wider text-blue-700">
+									{featuredPost.data.category}
+								</span>
+							</div>
+
+							<h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight">
+								<a href={`/blog/${featuredPost.id}/`} class="hover:text-blue-700 transition-colors">
+									{featuredPost.data.title}
 								</a>
-							</li>
-						))
-					}
-				</ul>
+							</h2>
+
+							<p class="text-sm text-slate-600 leading-relaxed">
+								{featuredPost.data.description}
+							</p>
+
+							<div class="pt-2 flex items-center justify-between text-xs text-slate-500 border-t border-slate-100">
+								<span>{featuredPost.data.readTime}</span>
+								<FormattedDate date={featuredPost.data.pubDate} />
+							</div>
+
+							<a
+								href={`/blog/${featuredPost.id}/`}
+								class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-800 transition-colors"
+							>
+								Ler artigo completo →
+							</a>
+						</div>
+					</div>
+				</section>
+			)}
+
+			<!-- Espaço AdSense In-Feed -->
+			<AdSense slotId="3456789012" slotName="In-Feed Entre Posts (Responsivo)" format="fluid" minHeight="120px" />
+
+			<!-- Grid dos Demais Posts -->
+			<section class="my-10">
+				<h2 class="text-xl font-bold text-slate-900 mb-6">Todos os Artigos Recentes</h2>
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+					{remainingPosts.map((post) => (
+						<article class="bg-white rounded-2xl border border-slate-200/90 shadow-2xs hover:shadow-md hover:border-blue-400 transition-all duration-200 flex flex-col justify-between overflow-hidden">
+							<div>
+								<a href={`/blog/${post.id}/`} class="block overflow-hidden">
+									{post.data.heroImage && (
+										<Image
+											width={600}
+											height={340}
+											src={post.data.heroImage}
+											alt={post.data.title}
+											class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
+										/>
+									)}
+								</a>
+								<div class="p-6">
+									<div class="flex items-center justify-between gap-2 mb-2.5">
+										<span class="text-[10px] font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full">
+											{post.data.category}
+										</span>
+										<span class="text-[11px] text-slate-400">
+											{post.data.readTime}
+										</span>
+									</div>
+
+									<h3 class="text-lg font-bold text-slate-900 leading-snug mb-2">
+										<a href={`/blog/${post.id}/`} class="hover:text-blue-700 transition-colors">
+											{post.data.title}
+										</a>
+									</h3>
+
+									<p class="text-xs text-slate-600 line-clamp-3 leading-relaxed">
+										{post.data.description}
+									</p>
+								</div>
+							</div>
+
+							<div class="px-6 py-4 bg-slate-50/60 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+								<FormattedDate date={post.data.pubDate} />
+								<a href={`/blog/${post.id}/`} class="font-bold text-blue-600 hover:text-blue-800">
+									Ler →
+								</a>
+							</div>
+						</article>
+					))}
+				</div>
 			</section>
+
+			<!-- AdSense Rodapé -->
+			<AdSense slotId="8765432109" slotName="Rodapé do Blog (Leaderboard 728x90)" format="horizontal" minHeight="90px" />
 		</main>
+
 		<Footer />
 	</body>
 </html>

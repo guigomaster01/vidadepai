@@ -1,49 +1,245 @@
 ---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import AdSense from '../components/AdSense.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import { SITE_DESCRIPTION, SITE_TITLE, CATEGORIES } from '../consts';
+import heroPhoto from '../assets/hero-pai-bebe.jpg';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const featuredPosts = posts.slice(0, 3);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} image={heroPhoto} />
 	</head>
-	<body>
+	<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
 		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your{' '}
-				<code>astro.config.mjs</code> file. You can customize your setup with{' '}
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to{' '}
-				<a href="https://docs.astro.build/">read the docs</a>{' '}
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out{' '}
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>{' '}
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+
+		<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex-1 w-full space-y-12">
+			<!-- Hero Section Principal -->
+			<section class="bg-gradient-to-br from-white via-blue-50/40 to-slate-100 rounded-3xl p-6 sm:p-12 border border-slate-200 shadow-xs overflow-hidden relative">
+				<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+					<div class="lg:col-span-7 space-y-6">
+						<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-bold uppercase tracking-wider border border-blue-200">
+							<span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+							O Portal do Pai Contemporâneo
+						</div>
+
+						<h1 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+							Paternidade real, com presença, afeto e dicas práticas.
+						</h1>
+
+						<p class="text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl">
+							Chega de se sentir coadjuvante. Aqui você encontra respostas diretas para os desafios do dia a dia, desde a primeira troca de fralda até a educação dos filhos.
+						</p>
+
+						<div class="flex flex-wrap items-center gap-3 pt-2">
+							<a
+								href="/blog"
+								class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all duration-200"
+							>
+								Ver Todos os Artigos
+							</a>
+							<a
+								href="/ferramentas"
+								class="px-6 py-3 rounded-xl bg-white hover:bg-slate-100 text-slate-800 font-bold text-sm border border-slate-300 shadow-2xs transition-all duration-200 flex items-center gap-2"
+							>
+								<span>Calculadoras & Ferramentas</span>
+								<span class="w-2 h-2 rounded-full bg-amber-500"></span>
+							</a>
+						</div>
+					</div>
+
+					<div class="lg:col-span-5 relative">
+						<div class="relative rounded-2xl overflow-hidden shadow-xl border-4 border-white">
+							<Image
+								src={heroPhoto}
+								alt="Pai segurando bebê com sorriso carinhoso em casa"
+								class="w-full h-auto object-cover max-h-[380px]"
+							/>
+						</div>
+						<!-- Floating Badge -->
+						<div class="absolute -bottom-4 -left-4 bg-white/95 backdrop-blur-md px-4 py-3 rounded-2xl border border-slate-200 shadow-lg hidden sm:flex items-center gap-3">
+							<span class="text-2xl">🍼</span>
+							<div>
+								<span class="block text-xs font-bold text-slate-900">100% Gratuito</span>
+								<span class="text-[10px] text-slate-500">Dicas reais de pai para pai</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- AdSense Topo da Home -->
+			<AdSense slotId="1122334455" slotName="Leaderboard Principal Home (728x90)" format="horizontal" minHeight="90px" />
+
+			<!-- Barra de Categorias Temáticas -->
+			<section>
+				<div class="flex items-center justify-between mb-4">
+					<h2 class="text-xs font-bold uppercase tracking-wider text-slate-500">
+						Explore por Tema
+					</h2>
+					<a href="/blog" class="text-xs font-semibold text-blue-600 hover:underline">
+						Ver todos →
+					</a>
+				</div>
+				<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+					{CATEGORIES.map((cat) => (
+						<a
+							href="/blog"
+							class="p-4 rounded-2xl bg-white border border-slate-200/90 hover:border-blue-400 hover:shadow-xs transition-all text-center group"
+						>
+							<span class="block text-sm font-bold text-slate-800 group-hover:text-blue-700 transition-colors">
+								{cat.name}
+							</span>
+							<span class="text-[11px] text-slate-400 mt-1 block">
+								Artigos práticos
+							</span>
+						</a>
+					))}
+				</div>
+			</section>
+
+			<!-- Artigos em Destaque -->
+			<section>
+				<div class="flex items-center justify-between mb-6">
+					<div>
+						<h2 class="text-2xl font-black text-slate-900">
+							Últimos Artigos Publicados
+						</h2>
+						<p class="text-xs text-slate-500 mt-0.5">
+							Conteúdo recente para ler em poucos minutos
+						</p>
+					</div>
+					<a
+						href="/blog"
+						class="text-xs font-bold text-blue-600 hover:text-blue-800 transition-colors flex items-center gap-1"
+					>
+						Ver todos os artigos →
+					</a>
+				</div>
+
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+					{featuredPosts.map((post) => (
+						<article class="bg-white rounded-2xl border border-slate-200 shadow-2xs hover:shadow-md hover:border-blue-400 transition-all duration-200 flex flex-col justify-between overflow-hidden">
+							<div>
+								<a href={`/blog/${post.id}/`} class="block overflow-hidden">
+									{post.data.heroImage && (
+										<Image
+											width={600}
+											height={340}
+											src={post.data.heroImage}
+											alt={post.data.title}
+											class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
+										/>
+									)}
+								</a>
+								<div class="p-6">
+									<div class="flex items-center justify-between gap-2 mb-2">
+										<span class="text-[10px] font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full">
+											{post.data.category}
+										</span>
+										<span class="text-[11px] text-slate-400">
+											{post.data.readTime}
+										</span>
+									</div>
+
+									<h3 class="text-lg font-bold text-slate-900 leading-snug mb-2">
+										<a href={`/blog/${post.id}/`} class="hover:text-blue-700 transition-colors">
+											{post.data.title}
+										</a>
+									</h3>
+
+									<p class="text-xs text-slate-600 line-clamp-3 leading-relaxed">
+										{post.data.description}
+									</p>
+								</div>
+							</div>
+
+							<div class="px-6 py-4 bg-slate-50/60 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+								<FormattedDate date={post.data.pubDate} />
+								<a href={`/blog/${post.id}/`} class="font-bold text-blue-600 hover:text-blue-800">
+									Ler Artigo →
+								</a>
+							</div>
+						</article>
+					))}
+				</div>
+			</section>
+
+			<!-- AdSense Meio da Página -->
+			<AdSense slotId="5566778899" slotName="Meio da Home (Responsivo Retângulo)" format="rectangle" minHeight="250px" />
+
+			<!-- Teaser de Ferramentas nos Subdomínios -->
+			<section class="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 rounded-3xl p-8 sm:p-10 text-white shadow-lg">
+				<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+					<div class="lg:col-span-8 space-y-4">
+						<span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30">
+							Planejamento para Subdomínios
+						</span>
+						<h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+							Ferramentas e Calculadoras para a Família
+						</h2>
+						<p class="text-sm text-slate-300 leading-relaxed max-w-2xl">
+							Além de artigos, estamos criando ferramentas interativas hospedadas em subdomínios dedicados (como <code>calculadora.vidadepai.com.br</code>) para resolver cálculos de fraldas, gastos e rotinas de sono.
+						</p>
+					</div>
+
+					<div class="lg:col-span-4 flex lg:justify-end">
+						<a
+							href="/ferramentas"
+							class="px-6 py-3.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-sm shadow-md transition-colors text-center w-full lg:w-auto"
+						>
+							Conhecer Ferramentas →
+						</a>
+					</div>
+				</div>
+			</section>
+
+			<!-- Newsletter Section -->
+			<section class="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 text-center max-w-3xl mx-auto shadow-xs">
+				<span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+					Comunidade Vida de Pai
+				</span>
+				<h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3 mb-2">
+					Receba o Guia Semanal do Pai
+				</h2>
+				<p class="text-sm text-slate-600 max-w-lg mx-auto mb-6">
+					Toda quinta-feira uma dose rápida de dicas comprovadas, ferramentas novas e reflexões sobre paternidade real direto no seu e-mail. Zero spam.
+				</p>
+
+				<form onsubmit="event.preventDefault(); alert('Inscrição realizada com sucesso! Bem-vindo!'); this.reset();" class="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
+					<input
+						type="email"
+						required
+						placeholder="Digite seu melhor e-mail"
+						class="w-full sm:flex-1 px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600/30"
+					/>
+					<button
+						type="submit"
+						class="w-full sm:w-auto px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-sm shadow-sm transition-colors cursor-pointer"
+					>
+						Inscrever-se Grátis
+					</button>
+				</form>
+				<p class="text-[11px] text-slate-400 mt-3">
+					Seus dados estão 100% protegidos pela nossa <a href="/politica-de-privacidade" class="underline">Política de Privacidade</a>.
+				</p>
+			</section>
+
+			<!-- AdSense Rodapé da Home -->
+			<AdSense slotId="9900112233" slotName="Rodapé Principal Home (728x90)" format="horizontal" minHeight="90px" />
 		</main>
+
 		<Footer />
 	</body>
 </html>

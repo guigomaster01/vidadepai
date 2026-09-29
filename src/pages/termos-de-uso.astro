@@ -1,0 +1,75 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, CONTACT_EMAIL } from '../consts';
+---
+
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<BaseHead
+			title={`Termos de Uso | ${SITE_TITLE}`}
+			description="Termos e condições de uso do blog e portal Vida de Pai."
+		/>
+	</head>
+	<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+		<Header />
+
+		<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-1">
+			<article class="bg-white rounded-2xl p-6 sm:p-10 shadow-xs border border-slate-200">
+				<header class="mb-8 border-b border-slate-200 pb-6">
+					<span class="text-xs font-semibold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full">
+						Condições de Acesso
+					</span>
+					<h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">
+						Termos de Uso
+					</h1>
+					<p class="text-sm text-slate-500 mt-2">
+						Vigência a partir de Setembro de 2026 • <strong>vidadepai.com.br</strong>
+					</p>
+				</header>
+
+				<div class="prose max-w-none text-slate-700 space-y-6 text-sm sm:text-base leading-relaxed">
+					<section>
+						<h2 class="text-xl font-bold text-slate-900">1. Aceitação dos Termos</h2>
+						<p>
+							Ao acessar o portal <strong>Vida de Pai</strong> (<code>vidadepai.com.br</code>) e qualquer uma de suas ferramentas ou subdomínios, você concorda em cumprir estes termos de serviço, todas as leis e regulamentos aplicáveis.
+						</p>
+					</section>
+
+					<section>
+						<h2 class="text-xl font-bold text-slate-900">2. Propósito Informativo e Isenção Médica</h2>
+						<p>
+							O conteúdo publicado no Vida de Pai tem caráter estritamente educativo, informativo e de compartilhamento de experiências parentais. <strong>Nenhum conteúdo substitui o acompanhamento ou diagnóstico médico pediátrico, psicológico ou de especialistas habilitados.</strong> Sempre consulte o pediatra do seu filho para orientações clínicas.
+						</p>
+					</section>
+
+					<section>
+						<h2 class="text-xl font-bold text-slate-900">3. Direitos Autorais e Propriedade Intelectual</h2>
+						<p>
+							Todo o material textual, design, logotipos e ilustrações deste site são de propriedade do Vida de Pai ou licenciados legalmente. É permitida a citação de pequenos trechos para fins informativos ou de estudo, desde que acompanhada de atribuição clara e link para a fonte original.
+						</p>
+					</section>
+
+					<section>
+						<h2 class="text-xl font-bold text-slate-900">4. Ferramentas e Subdomínios</h2>
+						<p>
+							Futuras calculadoras, simuladores ou aplicativos disponíveis sob o domínio <code>*.vidadepai.com.br</code> são fornecidos "como estão", para auxílio na rotina parental, sem garantias de precisão absoluta para fins financeiros ou clínicos.
+						</p>
+					</section>
+
+					<section>
+						<h2 class="text-xl font-bold text-slate-900">5. Dúvidas</h2>
+						<p>
+							Para dúvidas comerciais, de direitos autorais ou termos de serviço, entre em contato através de:
+							<a href={`mailto:${CONTACT_EMAIL}`} class="text-blue-600 font-semibold underline ml-1">{CONTACT_EMAIL}</a>.
+						</p>
+					</section>
+				</div>
+			</article>
+		</main>
+
+		<Footer />
+	</body>
+</html>

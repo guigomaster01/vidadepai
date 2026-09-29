@@ -5,82 +5,203 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
+import AdSense from '../components/AdSense.astro';
+import { CATEGORIES } from '../consts';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const {
+	title,
+	description,
+	pubDate,
+	updatedDate,
+	heroImage,
+	category = 'Paternidade',
+	author = 'Equipe Vida de Pai',
+	readTime = '5 min de leitura',
+} = Astro.props;
 ---
 
-<html lang="en">
+<!doctype html>
+<html lang="pt-BR">
 	<head>
-		<BaseHead title={title} description={description} />
-		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
-			}
-			.hero-image {
-				width: 100%;
-			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
-			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-			}
-			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-		</style>
+		<BaseHead title={`${title} | Vida de Pai`} description={description} image={heroImage} />
 	</head>
 
-	<body>
+	<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
 		<Header />
-		<main>
-			<article>
-				<div class="hero-image">
-					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
-				</div>
-				<div class="prose">
-					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
+
+		<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex-1 w-full">
+			<!-- Breadcrumbs -->
+			<nav class="flex items-center gap-2 text-xs text-slate-500 mb-6">
+				<a href="/" class="hover:text-blue-600 transition-colors">Início</a>
+				<span>/</span>
+				<a href="/blog" class="hover:text-blue-600 transition-colors">Artigos</a>
+				<span>/</span>
+				<span class="text-slate-700 font-medium">{category}</span>
+			</nav>
+
+			<!-- AdSense Top Leaderboard Banner -->
+			<AdSense slotId="1029384756" slotName="Topo do Artigo (Leaderboard 728x90)" format="horizontal" minHeight="90px" />
+
+			<!-- Article Grid: Main Content + Sidebar -->
+			<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 mt-6">
+				<!-- Main Column (8 cols) -->
+				<article class="lg:col-span-8 bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/80 shadow-xs">
+					<!-- Post Meta Header -->
+					<header class="mb-8">
+						<div class="flex flex-wrap items-center gap-2.5 mb-4">
+							<span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-200/60">
+								{category}
+							</span>
+							<span class="text-xs text-slate-400">•</span>
+							<span class="text-xs text-slate-500 font-medium">
+								{readTime}
+							</span>
+							<span class="text-xs text-slate-400">•</span>
+							<span class="text-xs text-slate-500 font-medium">
+								<FormattedDate date={pubDate} />
+							</span>
 						</div>
-						<h1>{title}</h1>
-						<hr />
+
+						<h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 leading-tight tracking-tight mb-4">
+							{title}
+						</h1>
+
+						<p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+							{description}
+						</p>
+
+						<div class="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+							<div class="flex items-center gap-3">
+								<span class="w-9 h-9 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-sm">
+									VP
+								</span>
+								<div>
+									<span class="block font-semibold text-slate-800">{author}</span>
+									<span class="text-[11px] text-slate-400">Editoria Vida de Pai</span>
+								</div>
+							</div>
+
+							{updatedDate && (
+								<span class="text-slate-400 italic">
+									Atualizado em <FormattedDate date={updatedDate} />
+								</span>
+							)}
+						</div>
+					</header>
+
+					<!-- Featured Image -->
+					{heroImage && (
+						<div class="mb-8 rounded-2xl overflow-hidden shadow-sm">
+							<Image
+								width={1020}
+								height={510}
+								src={heroImage}
+								alt={title}
+								class="w-full h-auto object-cover max-h-[480px]"
+							/>
+						</div>
+					)}
+
+					<!-- Article Body -->
+					<div class="prose max-w-none text-slate-700 space-y-6 text-base sm:text-lg leading-relaxed">
+						<slot />
 					</div>
-					<slot />
-				</div>
-			</article>
+
+					<!-- In-Article / Post Bottom AdSense -->
+					<div class="mt-12 pt-8 border-t border-slate-100">
+						<AdSense slotId="5647382910" slotName="Final do Artigo (Retângulo Responsivo)" format="rectangle" minHeight="250px" />
+					</div>
+
+					<!-- Author Box & Share -->
+					<div class="mt-10 p-6 rounded-2xl bg-slate-50 border border-slate-200/80 flex flex-col sm:flex-row items-center gap-4">
+						<span class="w-14 h-14 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-extrabold flex items-center justify-center text-xl shrink-0 shadow-sm">
+							VP
+						</span>
+						<div class="text-center sm:text-left">
+							<h3 class="font-bold text-slate-900 text-sm">Sobre o Vida de Pai</h3>
+							<p class="text-xs text-slate-600 mt-1 leading-relaxed">
+								Criado por pais para apoiar outros pais. Acreditamos na paternidade presente, carinhosa, parceira e descomplicada.
+							</p>
+						</div>
+					</div>
+				</article>
+
+				<!-- Sidebar Column (4 cols) -->
+				<aside class="lg:col-span-4 space-y-6">
+					<!-- Sticky AdSense Sidebar -->
+					<div class="sticky top-24 space-y-6">
+						<!-- AdSense Sidebar Unit -->
+						<AdSense slotId="9988776655" slotName="Barra Lateral (300x250 / 300x600)" format="rectangle" minHeight="280px" />
+
+						<!-- Mini Newsletter Widget -->
+						<div class="bg-gradient-to-br from-blue-700 via-indigo-700 to-slate-900 rounded-2xl p-6 text-white shadow-md">
+							<span class="text-[10px] font-bold uppercase tracking-wider text-amber-300">
+								Newsletter Gratuita
+							</span>
+							<h3 class="text-lg font-bold mt-1 mb-2">
+								O Guia Semanal do Pai
+							</h3>
+							<p class="text-xs text-blue-100/90 leading-relaxed mb-4">
+								Receba as melhores dicas práticas, novidades sobre desenvolvimento infantil e alertas de novas calculadoras.
+							</p>
+							<form onsubmit="event.preventDefault(); alert('Inscrição confirmada com sucesso!'); this.reset();" class="space-y-2">
+								<input
+									type="email"
+									required
+									placeholder="Seu melhor e-mail"
+									class="w-full px-3.5 py-2 rounded-xl text-xs text-slate-900 bg-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
+								/>
+								<button
+									type="submit"
+									class="w-full py-2 bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold rounded-xl text-xs transition-colors cursor-pointer"
+								>
+									Quero Receber Dicas
+								</button>
+							</form>
+						</div>
+
+						<!-- Categorias Rápidas -->
+						<div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs">
+							<h4 class="text-xs font-bold uppercase tracking-wider text-slate-800 mb-3">
+								Categorias
+							</h4>
+							<div class="flex flex-wrap gap-1.5">
+								{CATEGORIES.map((cat) => (
+									<a
+										href="/blog"
+										class="text-xs px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors font-medium"
+									>
+										{cat.name}
+									</a>
+								))}
+							</div>
+						</div>
+
+						<!-- Banner Ferramentas / Subdomínio -->
+						<div class="bg-amber-50 border border-amber-200 rounded-2xl p-5">
+							<span class="text-[10px] font-bold uppercase tracking-wider text-amber-800 bg-amber-200/60 px-2 py-0.5 rounded-full">
+								Calculadora Grátis
+							</span>
+							<h4 class="font-bold text-slate-900 text-sm mt-2 mb-1">
+								Quantas fraldas seu bebê gasta?
+							</h4>
+							<p class="text-xs text-slate-600 mb-3">
+								Use nossa calculadora de fraldas e descubra o consumo e gasto médio mensal.
+							</p>
+							<a
+								href="/ferramentas"
+								class="inline-block text-xs font-bold text-blue-700 hover:text-blue-800 underline"
+							>
+								Calcular agora no subdomínio →
+							</a>
+						</div>
+					</div>
+				</aside>
+			</div>
 		</main>
+
 		<Footer />
 	</body>
 </html>

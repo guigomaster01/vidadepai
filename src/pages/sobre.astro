@@ -1,0 +1,113 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { Image } from 'astro:assets';
+import { SITE_TITLE } from '../consts';
+import heroImage from '../assets/hero-pai-bebe.jpg';
+import readingImage from '../assets/pai-filho-atividades.jpg';
+---
+
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<BaseHead
+			title={`Sobre Nós | ${SITE_TITLE}`}
+			description="Conheça a história e o propósito do Vida de Pai: o espaço do pai presente, participativo e consciente."
+			image={heroImage}
+		/>
+	</head>
+	<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+		<Header />
+
+		<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-1">
+			<article class="bg-white rounded-2xl p-6 sm:p-10 shadow-xs border border-slate-200">
+				<!-- Top Header -->
+				<header class="mb-10 text-center">
+					<span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-3 py-1.5 rounded-full border border-blue-200/60">
+						Nossa Missão
+					</span>
+					<h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 mt-4 tracking-tight">
+						Paternidade real, ativa e sem rodeios.
+					</h1>
+					<p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto mt-3">
+						Criado para acolher, informar e equipar pais que querem estar presentes de verdade em cada segundo do crescimento dos seus filhos.
+					</p>
+				</header>
+
+				<!-- Hero Visual -->
+				<div class="mb-10 rounded-2xl overflow-hidden shadow-md">
+					<Image
+						src={heroImage}
+						alt="Pai segurando seu bebê com carinho e sorriso"
+						class="w-full h-auto max-h-[460px] object-cover"
+					/>
+				</div>
+
+				<!-- Content -->
+				<div class="prose max-w-none text-slate-700 space-y-6 text-base leading-relaxed">
+					<h2 class="text-2xl font-bold text-slate-900">Por que o Vida de Pai nasceu?</h2>
+					<p>
+						Historicamente, a paternidade muitas vezes foi retratada como um papel secundário — o do pai que apenas "ajuda" a mãe de vez em quando. Mas os tempos mudaram, e nós mudamos com eles. Ser pai hoje é dividir a madrugada, trocar fralda com agilidade, conhecer os horários de vacina, acolher o choro com paciência e ser referência de carinho e firmeza.
+					</p>
+					<p>
+						O <strong>Vida de Pai</strong> nasceu com um objetivo claro: ser o porto seguro do pai contemporâneo. Um lugar onde você encontra respostas rápidas para dúvidas que surgem às três da manhã, conselhos práticos testados no mundo real e reflexões honestas sobre os desafios da criação de filhos.
+					</p>
+
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-10 not-prose">
+						<div class="p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+							<div class="w-10 h-10 rounded-lg bg-blue-600/10 text-blue-700 flex items-center justify-center font-bold text-lg mb-3">
+								01
+							</div>
+							<h3 class="font-bold text-slate-900 text-lg mb-1">Conteúdo Direto ao Ponto</h3>
+							<p class="text-sm text-slate-600 leading-relaxed">
+								Pais têm rotinas corridas. Nossos artigos e guias são objetivos, fáceis de ler e prontos para colocar em prática hoje mesmo.
+							</p>
+						</div>
+
+						<div class="p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+							<div class="w-10 h-10 rounded-lg bg-indigo-600/10 text-indigo-700 flex items-center justify-center font-bold text-lg mb-3">
+								02
+							</div>
+							<h3 class="font-bold text-slate-900 text-lg mb-1">Ferramentas & Soluções</h3>
+							<p class="text-sm text-slate-600 leading-relaxed">
+								Além de artigos, desenvolvemos calculadoras e utilitários digitais gratuitos em subdomínios dedicados para facilitar o dia a dia.
+							</p>
+						</div>
+					</div>
+
+					<!-- Second Image + Story -->
+					<div class="my-10 rounded-2xl overflow-hidden shadow-sm">
+						<Image
+							src={readingImage}
+							alt="Pai lendo livro de histórias com a filha"
+							class="w-full h-auto max-h-[420px] object-cover"
+						/>
+					</div>
+
+					<h2 class="text-2xl font-bold text-slate-900">Nossos Pilares Editoriais</h2>
+					<ul class="list-disc pl-6 space-y-2">
+						<li><strong>Respeito e Afeto:</strong> Acreditamos na educação positiva com limites claros e conexão emocional.</li>
+						<li><strong>Praticidade:</strong> Testamos rotinas, produtos e métodos que realmente funcionam na vida familiar real.</li>
+						<li><strong>Futuro da Família:</strong> Organização financeira, planejamento e sustentabilidade para dar segurança aos filhos.</li>
+					</ul>
+
+					<div class="p-6 bg-blue-50/70 border border-blue-200/60 rounded-xl not-prose mt-8 text-center">
+						<h3 class="text-lg font-bold text-blue-900 mb-2">Faça Parte da Nossa Comunidade</h3>
+						<p class="text-sm text-blue-800/90 mb-4 max-w-xl mx-auto">
+							Tem uma história para compartilhar, sugestão de artigo ou quer sugerir uma nova ferramenta para pais? Adoramos conversar com nossos leitores!
+						</p>
+						<a
+							href="/contato"
+							class="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-sm transition-colors"
+						>
+							Entre em Contato
+						</a>
+					</div>
+				</div>
+			</article>
+		</main>
+
+		<Footer />
+	</body>
+</html>

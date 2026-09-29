@@ -1,0 +1,86 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, CONTACT_EMAIL } from '../consts';
+---
+
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<BaseHead
+			title={`Política de Privacidade | ${SITE_TITLE}`}
+			description="Política de privacidade do blog Vida de Pai em conformidade com a LGPD e diretrizes do Google AdSense."
+		/>
+	</head>
+	<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+		<Header />
+
+		<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-1">
+			<article class="bg-white rounded-2xl p-6 sm:p-10 shadow-xs border border-slate-200">
+				<header class="mb-8 border-b border-slate-200 pb-6">
+					<span class="text-xs font-semibold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full">
+						Transparência & LGPD
+					</span>
+					<h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">
+						Política de Privacidade
+					</h1>
+					<p class="text-sm text-slate-500 mt-2">
+						Última atualização: Setembro de 2026 • Domínio: <strong>vidadepai.com.br</strong>
+					</p>
+				</header>
+
+				<div class="prose max-w-none text-slate-700 space-y-6 text-sm sm:text-base leading-relaxed">
+					<section>
+						<h2 class="text-xl font-bold text-slate-900">1. Informações Gerais</h2>
+						<p>
+							A sua privacidade é de extrema importância para o <strong>Vida de Pai</strong> (acessível pelo endereço <code>vidadepai.com.br</code>). Esta Política de Privacidade explica como coletamos, usamos, compartilhamos e protegemos os seus dados pessoais de acordo com a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018) e as diretrizes internacionais de navegação segura.
+						</p>
+					</section>
+
+					<section>
+						<h2 class="text-xl font-bold text-slate-900">2. Coleta de Informações e Cookies</h2>
+						<p>
+							O Vida de Pai utiliza cookies e tecnologias semelhantes para melhorar sua experiência de navegação, analisar o tráfego do site e apresentar conteúdos e anúncios personalizados:
+						</p>
+						<ul class="list-disc pl-6 space-y-2 mt-2">
+							<li><strong>Cookies Essenciais:</strong> Necessários para o correto funcionamento das páginas e segurança de navegação.</li>
+							<li><strong>Cookies Analíticos:</strong> Ferramentas como o Cloudflare Analytics e Google Analytics nos auxiliam a compreender quais tópicos são mais lidos e como aprimorar nosso portal.</li>
+							<li><strong>Cookies de Publicidade:</strong> Utilizados por nossos parceiros, principalmente o Google AdSense, para veicular publicidade relevante aos nossos leitores.</li>
+						</ul>
+					</section>
+
+					<section class="p-5 bg-amber-50/70 border border-amber-200/80 rounded-xl">
+						<h2 class="text-xl font-bold text-amber-900 mb-2">3. Google AdSense e Cookies de Publicidade</h2>
+						<p class="text-amber-900/90 text-sm leading-relaxed">
+							O Google, como fornecedor terceirizado, utiliza cookies para veicular anúncios neste site. O uso de cookies de publicidade pelo Google permite veicular anúncios com base nas visitas anteriores dos usuários a este ou a outros sites na Internet:
+						</p>
+						<ul class="list-disc pl-6 space-y-2 mt-3 text-amber-900/90 text-sm">
+							<li>Fornecedores terceirizados, incluindo o Google, usam cookies para veicular anúncios com base em visitas anteriores do usuário ao nosso website ou a outros sites.</li>
+							<li>Com os cookies de publicidade, o Google e seus parceiros podem veicular anúncios para os usuários com base nas visitas feitas aos seus sites e/ou a outros sites na Internet.</li>
+							<li>Os usuários podem desativar a publicidade personalizada acessando as <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer" class="font-semibold underline">Configurações de Anúncios do Google</a>.</li>
+							<li>Alternativamente, você pode desativar o uso de cookies de fornecedores terceirizados para publicidade personalizada acessando <a href="https://www.aboutads.info" target="_blank" rel="noopener noreferrer" class="font-semibold underline">www.aboutads.info</a>.</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2 class="text-xl font-bold text-slate-900">4. Seus Direitos (LGPD)</h2>
+						<p>
+							Como titular dos seus dados no Brasil, você possui direito de solicitar acesso, correção, anonimização, bloqueio ou eliminação de dados desnecessários mantidos por nós.
+						</p>
+					</section>
+
+					<section>
+						<h2 class="text-xl font-bold text-slate-900">5. Contato sobre Privacidade</h2>
+						<p>
+							Caso tenha qualquer dúvida referente a esta política ou ao tratamento de seus dados, sinta-se à vontade para nos contatar através do e-mail oficial:
+							<a href={`mailto:${CONTACT_EMAIL}`} class="text-blue-600 font-semibold underline ml-1">{CONTACT_EMAIL}</a>.
+						</p>
+					</section>
+				</div>
+			</article>
+		</main>
+
+		<Footer />
+	</body>
+</html>

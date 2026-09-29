@@ -1,0 +1,224 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import AdSense from '../components/AdSense.astro';
+import { SITE_TITLE } from '../consts';
+
+const plannedTools = [
+	{
+		title: 'Calculadora de Fraldas e Custos',
+		subdomain: 'calculadora.vidadepai.com.br',
+		description: 'Descubra a quantidade ideal de fraldas por tamanho (RN, P, M, G, XG) e o custo médio mensal estimado para o primeiro ano do seu bebê.',
+		status: 'Em Desenvolvimento',
+		badgeColor: 'bg-emerald-100 text-emerald-800',
+	},
+	{
+		title: 'Rastreador de Janelas de Sono',
+		subdomain: 'sono.vidadepai.com.br',
+		description: 'Guia dinâmico para calcular os horários ideais de soneca e sono noturno conforme a idade exata do bebê em semanas ou meses.',
+		status: 'Planejado',
+		badgeColor: 'bg-blue-100 text-blue-800',
+	},
+	{
+		title: 'Simulador do Enxoval Inteligente',
+		subdomain: 'enxoval.vidadepai.com.br',
+		description: 'Checklist interativo e sem exageros para não gastar dinheiro com itens inúteis ou que o bebê perde em poucos dias.',
+		status: 'Planejado',
+		badgeColor: 'bg-amber-100 text-amber-800',
+	},
+	{
+		title: 'Curva de Desenvolvimento & Marcos',
+		subdomain: 'marcos.vidadepai.com.br',
+		description: 'Acompanhe saltos de desenvolvimento, picos de crescimento e marcos motores dos 0 aos 3 anos.',
+		status: 'Planejado',
+		badgeColor: 'bg-purple-100 text-purple-800',
+	},
+];
+---
+
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<BaseHead
+			title={`Ferramentas para Pais | ${SITE_TITLE}`}
+			description="Calculadoras e aplicativos gratuitos para facilitar a rotina do pai moderno e da família."
+		/>
+	</head>
+	<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+		<Header />
+
+		<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-1">
+			<!-- Header da Página -->
+			<div class="text-center max-w-3xl mx-auto mb-10">
+				<span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+					Ecossistema & Subdomínios
+				</span>
+				<h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 mt-4 tracking-tight">
+					Ferramentas e Calculadoras Úteis
+				</h1>
+				<p class="text-sm sm:text-base text-slate-600 mt-3 leading-relaxed">
+					Desenvolvidas para resolver dilemas práticos da rotina parental em segundos. Cada ferramenta é planejada para rodar em seu próprio subdomínio no Cloudflare com velocidade instantânea.
+				</p>
+			</div>
+
+			<!-- Espaço Publicitário Superior -->
+			<AdSense slotId="4567891230" slotName="Topo das Ferramentas (728x90)" format="horizontal" minHeight="90px" />
+
+			<!-- Mini Ferramenta Interativa Ao Vivo: Calculadora de Fraldas -->
+			<div class="my-10 bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+				<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-slate-100 pb-4 mb-6">
+					<div>
+						<span class="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+							Demonstração Interativa
+						</span>
+						<h2 class="text-xl sm:text-2xl font-bold text-slate-900 mt-1">
+							Calculadora Rápida: Estimativa de Fraldas por Dia
+						</h2>
+					</div>
+					<span class="text-xs text-slate-500">
+						Baseada na média pediátrica recomendada
+					</span>
+				</div>
+
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+					<div class="space-y-4">
+						<div>
+							<label for="baby-age" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+								Idade do Bebê
+							</label>
+							<select
+								id="baby-age"
+								class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600/30 bg-white"
+							>
+								<option value="rn">Recém-nascido (0 a 1 mês) - Tamanho RN</option>
+								<option value="1-3">1 a 3 meses - Tamanho P</option>
+								<option value="4-9" selected>4 a 9 meses - Tamanho M</option>
+								<option value="10-18">10 a 18 meses - Tamanho G</option>
+								<option value="18+">Acima de 18 meses - Tamanho XG</option>
+							</select>
+						</div>
+
+						<div>
+							<label for="price-per-diaper" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+								Preço médio por fralda (R$)
+							</label>
+							<input
+								type="number"
+								id="price-per-diaper"
+								step="0.05"
+								value="1.20"
+								class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600/30"
+							/>
+						</div>
+					</div>
+
+					<div class="p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50/50 border border-blue-100 flex flex-col justify-center">
+						<div class="text-xs uppercase font-bold tracking-wider text-blue-800 mb-1">
+							Resultado Estimado (30 Dias)
+						</div>
+						<div class="grid grid-cols-2 gap-4 mt-2">
+							<div class="p-3 bg-white rounded-xl shadow-xs border border-blue-100">
+								<span class="block text-[11px] text-slate-500">Média Diária</span>
+								<span id="daily-count" class="text-2xl font-extrabold text-slate-900">6</span>
+								<span class="text-[10px] text-slate-400">fraldas / dia</span>
+							</div>
+
+							<div class="p-3 bg-white rounded-xl shadow-xs border border-blue-100">
+								<span class="block text-[11px] text-slate-500">Total Mensal</span>
+								<span id="monthly-count" class="text-2xl font-extrabold text-blue-700">180</span>
+								<span class="text-[10px] text-slate-400">fraldas / mês</span>
+							</div>
+						</div>
+
+						<div class="mt-4 pt-3 border-t border-blue-200/60 flex items-center justify-between">
+							<span class="text-xs font-medium text-slate-700">Gasto mensal aproximado:</span>
+							<span id="monthly-cost" class="text-lg font-black text-emerald-700">R$ 216,00</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Grid de Ferramentas Futuras nos Subdomínios -->
+			<div class="mt-12">
+				<div class="flex items-center justify-between mb-6">
+					<div>
+						<h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+							Próximas Ferramentas em Subdomínios
+						</h2>
+						<p class="text-xs text-slate-500 mt-0.5">
+							Estrutura preparada para expansão independente via Cloudflare Pages
+						</p>
+					</div>
+				</div>
+
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+					{plannedTools.map((tool) => (
+						<div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:border-blue-400 transition-all duration-200 flex flex-col justify-between">
+							<div>
+								<div class="flex items-center justify-between mb-3">
+									<span class={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${tool.badgeColor}`}>
+										{tool.status}
+									</span>
+									<span class="text-xs font-mono text-slate-400">
+										{tool.subdomain}
+									</span>
+								</div>
+								<h3 class="text-lg font-bold text-slate-900 mb-2">
+									{tool.title}
+								</h3>
+								<p class="text-xs text-slate-600 leading-relaxed">
+									{tool.description}
+								</p>
+							</div>
+
+							<div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+								<span class="text-slate-400">Hospedagem Cloudflare Pages</span>
+								<a href="/contato" class="text-blue-600 font-semibold hover:underline">
+									Sugerir Ideia →
+								</a>
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+
+			<!-- AdSense Inferior -->
+			<AdSense slotId="7890123456" slotName="Rodapé das Ferramentas (Responsivo)" minHeight="120px" />
+		</main>
+
+		<Footer />
+
+		<script>
+			const ageSelect = document.getElementById('baby-age') as HTMLSelectElement;
+			const priceInput = document.getElementById('price-per-diaper') as HTMLInputElement;
+			const dailyCount = document.getElementById('daily-count');
+			const monthlyCount = document.getElementById('monthly-count');
+			const monthlyCost = document.getElementById('monthly-cost');
+
+			const rates: Record<string, number> = {
+				'rn': 8,
+				'1-3': 7,
+				'4-9': 6,
+				'10-18': 5,
+				'18+': 4,
+			};
+
+			function calculate() {
+				if (!ageSelect || !priceInput || !dailyCount || !monthlyCount || !monthlyCost) return;
+				const daily = rates[ageSelect.value] || 6;
+				const monthly = daily * 30;
+				const price = parseFloat(priceInput.value) || 1.20;
+				const cost = monthly * price;
+
+				dailyCount.textContent = daily.toString();
+				monthlyCount.textContent = monthly.toString();
+				monthlyCost.textContent = `R$ ${cost.toFixed(2).replace('.', ',')}`;
+			}
+
+			ageSelect?.addEventListener('change', calculate);
+			priceInput?.addEventListener('input', calculate);
+			calculate();
+		</script>
+	</body>
+</html>

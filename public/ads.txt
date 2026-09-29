@@ -1,0 +1,4 @@
+# Arquivo ads.txt para Google AdSense - Vida de Pai
+# Substitua pub-XXXXXXXXXXXXXXXX pelo seu ID de publicador quando sua conta do AdSense estiver ativa
+# Exemplo: google.com, pub-1234567890123456, DIRECT, f08c47fec0942fa0
+google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0

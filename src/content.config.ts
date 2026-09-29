@@ -14,6 +14,10 @@ const blog = defineCollection({
 			pubDate: z.coerce.date(),
 			updatedDate: z.coerce.date().optional(),
 			heroImage: z.optional(image()),
+			category: z.string().default('Geral'),
+			author: z.string().default('Equipe Vida de Pai'),
+			readTime: z.string().default('4 min de leitura'),
+			featured: z.boolean().default(false),
 		}),
 });
 
