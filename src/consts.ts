@@ -6,8 +6,7 @@ export const AUTHOR_NAME = 'Equipe Vida de Pai';
 export const CONTACT_EMAIL = 'contato@vidadepai.com.br';
 
 // Google AdSense Configuration
-// Substitua pelo seu ID de publicador quando for aprovado (ex: ca-pub-1234567890123456)
-export const ADSENSE_CLIENT_ID = import.meta.env.PUBLIC_ADSENSE_ID || 'ca-pub-XXXXXXXXXXXXXXXX';
+export const ADSENSE_CLIENT_ID = import.meta.env.PUBLIC_ADSENSE_ID || 'ca-pub-3914232964314830';
 
 // Web3Forms Configuration (Envio de mensagens de contato direto para o e-mail)
 // Obtenha sua chave gratuitamente em https://web3forms.com

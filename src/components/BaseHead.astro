@@ -58,7 +58,8 @@ const isAdsenseLive = ADSENSE_CLIENT_ID && !ADSENSE_CLIENT_ID.includes('XXXX');
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={new URL(image.src, Astro.site || 'https://vidadepai.com.br')} />
 
-<!-- Google AdSense Auto-Ads Script -->
+<!-- Google AdSense Account Verification & Auto-Ads -->
+<meta name="google-adsense-account" content="ca-pub-3914232964314830" />
 {isAdsenseLive && (
 	<script
 		async
