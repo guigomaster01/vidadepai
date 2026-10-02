@@ -1,0 +1,86 @@
+---
+import { ADSTERRA_BANNERS } from './constants';
+import type { AdsterraBannerSize } from './types';
+
+interface Props {
+	size: AdsterraBannerSize;
+	label?: string;
+	showLabel?: boolean;
+	className?: string;
+	showInDev?: boolean;
+}
+
+const {
+	size,
+	label = 'Publicidade',
+	showLabel = true,
+	className = '',
+	showInDev = false,
+} = Astro.props;
+
+const config = ADSTERRA_BANNERS[size];
+
+if (!config) {
+	throw new Error(`[AdsterraBanner] Tamanho inválido: "${size}". Opções: ${Object.keys(ADSTERRA_BANNERS).join(', ')}`);
+}
+
+// Em desenvolvimento, exibe placeholder a menos que showInDev seja explicitamente true
+const isProduction = !import.meta.env.DEV || showInDev;
+---
+
+<div class={`adsterra-banner-wrapper my-6 flex flex-col items-center ${className}`}>
+	{showLabel && (
+		<div class="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5 text-center">
+			{label}
+		</div>
+	)}
+
+	{isProduction ? (
+		<div
+			class="adsterra-banner-inner flex justify-center items-center overflow-x-auto max-w-full"
+			style={`min-height: ${config.height}px; width: 100%;`}
+		>
+			<div
+				class="adsterra-ad-frame flex justify-center items-center"
+				style={`width: ${config.width}px; height: ${config.height}px;`}
+			>
+				<script
+					is:inline
+					set:html={`
+						atOptions = {
+							'key' : '${config.key}',
+							'format' : '${config.format}',
+							'height' : ${config.height},
+							'width' : ${config.width},
+							'params' : {}
+						};
+					`}
+				></script>
+				<script is:inline type="text/javascript" src={config.scriptUrl}></script>
+			</div>
+		</div>
+	) : (
+		<div
+			class="adsterra-placeholder border-2 border-dashed border-amber-300 bg-amber-50/70 rounded-2xl p-4 flex flex-col items-center justify-center text-center transition-all hover:border-amber-400 max-w-full shadow-2xs"
+			style={`min-height: ${config.height}px; width: min(100%, ${config.width}px);`}
+		>
+			<div class="flex items-center gap-2 mb-1.5">
+				<span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-amber-500 text-slate-950 text-xs font-black shadow-xs">
+					★
+				</span>
+				<span class="text-xs font-bold text-slate-800">
+					Adsterra • {config.name}
+				</span>
+			</div>
+			<p class="text-xs text-slate-600 font-mono mt-0.5">
+				{config.width} × {config.height} px
+			</p>
+			<p class="text-[11px] text-slate-400 mt-1 max-w-xs">
+				Key: <code class="px-1 py-0.5 rounded bg-amber-200/50 text-[10px]">{config.key.slice(0, 12)}...</code>
+			</p>
+			<span class="mt-2 text-[10px] text-amber-800 font-semibold px-2.5 py-0.5 rounded-full bg-amber-200/60 border border-amber-300/80">
+				Ativo em Produção (Modo Dev Oculto)
+			</span>
+		</div>
+	)}
+</div>

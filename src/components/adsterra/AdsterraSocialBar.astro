@@ -1,0 +1,24 @@
+---
+import { ADSTERRA_SOCIALBAR_SCRIPT } from './constants';
+
+interface Props {
+	enabled?: boolean;
+	showInDev?: boolean;
+}
+
+const {
+	enabled = true,
+	showInDev = false,
+} = Astro.props;
+
+const isProduction = !import.meta.env.DEV || showInDev;
+const shouldRender = enabled && isProduction;
+---
+
+{shouldRender && (
+	<script
+		is:inline
+		data-cfasync="false"
+		src={ADSTERRA_SOCIALBAR_SCRIPT}
+	></script>
+)}

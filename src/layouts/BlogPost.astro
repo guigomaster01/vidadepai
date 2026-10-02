@@ -5,7 +5,14 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
-import AdSense from '../components/AdSense.astro';
+import {
+	AdsterraBanner,
+	AdsterraResponsiveBanner,
+	AdsterraNative,
+	AdsterraPopunder,
+	AdsterraSocialBar,
+	AdsterraSmartlink,
+} from '../components/adsterra';
 import { CATEGORIES } from '../consts';
 
 type Props = CollectionEntry<'blog'>['data'];
@@ -41,8 +48,8 @@ const {
 				<span class="text-slate-700 font-medium">{category}</span>
 			</nav>
 
-			<!-- AdSense Top Leaderboard Banner -->
-			<AdSense slotId="1029384756" slotName="Topo do Artigo (Leaderboard 728x90)" format="horizontal" minHeight="90px" />
+			<!-- Adsterra Top Leaderboard Responsivo (728x90 no Desktop / 320x50 no Mobile) -->
+			<AdsterraResponsiveBanner desktopSize="728x90" mobileSize="320x50" />
 
 			<!-- Article Grid: Main Content + Sidebar -->
 			<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 mt-6">
@@ -109,9 +116,9 @@ const {
 						<slot />
 					</div>
 
-					<!-- In-Article / Post Bottom AdSense -->
-					<div class="mt-12 pt-8 border-t border-slate-100">
-						<AdSense slotId="5647382910" slotName="Final do Artigo (Retângulo Responsivo)" format="rectangle" minHeight="250px" />
+					<!-- In-Article / Post Bottom Adsterra Banner -->
+					<div class="mt-12 pt-8 border-t border-slate-100 flex justify-center">
+						<AdsterraBanner size="300x250" label="Publicidade" />
 					</div>
 
 					<!-- Author Box & Share -->
@@ -126,14 +133,19 @@ const {
 							</p>
 						</div>
 					</div>
+
+					<!-- Adsterra Native Banner (Grid de Recomendações) -->
+					<div class="mt-10">
+						<AdsterraNative label="Conteúdo Recomendado para Você" />
+					</div>
 				</article>
 
 				<!-- Sidebar Column (4 cols) -->
 				<aside class="lg:col-span-4 space-y-6">
-					<!-- Sticky AdSense Sidebar -->
+					<!-- Sticky Adsterra Sidebar -->
 					<div class="sticky top-24 space-y-6">
-						<!-- AdSense Sidebar Unit -->
-						<AdSense slotId="9988776655" slotName="Barra Lateral (300x250 / 300x600)" format="rectangle" minHeight="280px" />
+						<!-- Adsterra Sidebar Banner Unit (300x250) -->
+						<AdsterraBanner size="300x250" />
 
 						<!-- Mini Newsletter Widget -->
 						<div class="bg-gradient-to-br from-blue-700 via-indigo-700 to-slate-900 rounded-2xl p-6 text-white shadow-md">
@@ -161,6 +173,13 @@ const {
 								</button>
 							</form>
 						</div>
+
+						<!-- Destaque Parceiro / Smartlink Adsterra -->
+						<AdsterraSmartlink
+							variant="card"
+							title="Recomendações Especiais para Pais"
+							description="Seleção exclusiva com descontos e novidades para a rotina da sua família."
+						/>
 
 						<!-- Categorias Rápidas -->
 						<div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs">
@@ -203,5 +222,9 @@ const {
 		</main>
 
 		<Footer />
+
+		<!-- Scripts Globais de Monetização Adsterra -->
+		<AdsterraPopunder />
+		<AdsterraSocialBar />
 	</body>
 </html>

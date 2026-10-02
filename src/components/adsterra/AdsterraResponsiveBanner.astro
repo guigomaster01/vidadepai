@@ -1,0 +1,44 @@
+---
+import AdsterraBanner from './AdsterraBanner.astro';
+import type { AdsterraBannerSize } from './types';
+
+interface Props {
+	desktopSize?: AdsterraBannerSize;
+	mobileSize?: AdsterraBannerSize;
+	label?: string;
+	showLabel?: boolean;
+	className?: string;
+	showInDev?: boolean;
+}
+
+const {
+	desktopSize = '728x90',
+	mobileSize = '320x50',
+	label = 'Publicidade',
+	showLabel = true,
+	className = '',
+	showInDev = false,
+} = Astro.props;
+---
+
+<div class={`adsterra-responsive-banner-wrapper ${className}`}>
+	<!-- Versão Desktop / Tablet Grande (a partir de md: 768px) -->
+	<div class="hidden md:block">
+		<AdsterraBanner
+			size={desktopSize}
+			label={label}
+			showLabel={showLabel}
+			showInDev={showInDev}
+		/>
+	</div>
+
+	<!-- Versão Mobile (telas menores que 768px) -->
+	<div class="block md:hidden">
+		<AdsterraBanner
+			size={mobileSize}
+			label={label}
+			showLabel={showLabel}
+			showInDev={showInDev}
+		/>
+	</div>
+</div>

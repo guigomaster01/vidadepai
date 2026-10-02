@@ -1,0 +1,85 @@
+---
+import { ADSTERRA_SMARTLINK_URL } from './constants';
+
+interface Props {
+	href?: string;
+	variant?: 'button' | 'card' | 'badge' | 'link';
+	title?: string;
+	description?: string;
+	text?: string;
+	className?: string;
+	target?: string;
+	rel?: string;
+}
+
+const {
+	href = ADSTERRA_SMARTLINK_URL,
+	variant = 'button',
+	title = 'Recomendação Especial',
+	description = 'Confira ofertas e conteúdos selecionados para a família.',
+	text = 'Acessar Recomendação →',
+	className = '',
+	target = '_blank',
+	rel = 'noopener noreferrer sponsored',
+} = Astro.props;
+---
+
+{variant === 'button' && (
+	<a
+		href={href}
+		target={target}
+		rel={rel}
+		class={`inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold text-sm shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 cursor-pointer ${className}`}
+	>
+		<slot>{text}</slot>
+	</a>
+)}
+
+{variant === 'card' && (
+	<a
+		href={href}
+		target={target}
+		rel={rel}
+		class={`block p-5 rounded-2xl bg-gradient-to-br from-amber-50 via-white to-amber-100/40 border border-amber-200/80 shadow-xs hover:shadow-md hover:border-amber-300 transition-all duration-200 group ${className}`}
+	>
+		<div class="flex items-start justify-between gap-3">
+			<div class="space-y-1">
+				<span class="inline-block text-[10px] font-bold uppercase tracking-wider text-amber-800 bg-amber-200/70 px-2 py-0.5 rounded-full">
+					Destaque Parceiro
+				</span>
+				<h4 class="font-bold text-slate-900 text-sm group-hover:text-amber-700 transition-colors">
+					{title}
+				</h4>
+				<p class="text-xs text-slate-600 leading-relaxed">
+					{description}
+				</p>
+			</div>
+			<span class="text-amber-600 group-hover:translate-x-1 transition-transform text-lg shrink-0 mt-1">
+				→
+			</span>
+		</div>
+	</a>
+)}
+
+{variant === 'badge' && (
+	<a
+		href={href}
+		target={target}
+		rel={rel}
+		class={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-semibold transition-colors ${className}`}
+	>
+		<span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+		<slot>{text}</slot>
+	</a>
+)}
+
+{variant === 'link' && (
+	<a
+		href={href}
+		target={target}
+		rel={rel}
+		class={`text-blue-600 hover:text-blue-800 font-semibold underline decoration-blue-300 underline-offset-2 transition-colors ${className}`}
+	>
+		<slot>{text}</slot>
+	</a>
+)}

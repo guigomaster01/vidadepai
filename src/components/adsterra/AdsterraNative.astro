@@ -1,0 +1,78 @@
+---
+import { ADSTERRA_NATIVE } from './constants';
+
+interface Props {
+	label?: string;
+	showLabel?: boolean;
+	className?: string;
+	showInDev?: boolean;
+}
+
+const {
+	label = 'Conteúdo Patrocinado',
+	showLabel = true,
+	className = '',
+	showInDev = false,
+} = Astro.props;
+
+const isProduction = !import.meta.env.DEV || showInDev;
+---
+
+<div class={`adsterra-native-wrapper my-8 ${className}`}>
+	{showLabel && (
+		<div class="flex items-center justify-between mb-3 border-b border-slate-200/80 pb-2">
+			<span class="text-xs font-bold uppercase tracking-wider text-slate-500">
+				{label}
+			</span>
+			<span class="text-[10px] uppercase font-semibold text-slate-400 bg-slate-100 px-2 py-0.5 rounded">
+				Adsterra Native
+			</span>
+		</div>
+	)}
+
+	{isProduction ? (
+		<div class="adsterra-native-container min-h-[160px] w-full overflow-hidden">
+			<script
+				is:inline
+				async="async"
+				data-cfasync="false"
+				src={ADSTERRA_NATIVE.scriptUrl}
+			></script>
+			<div id={ADSTERRA_NATIVE.containerId} class="w-full"></div>
+		</div>
+	) : (
+		<div class="border-2 border-dashed border-indigo-200 bg-indigo-50/40 rounded-2xl p-6 transition-all hover:border-indigo-300">
+			<div class="flex items-center justify-between mb-4">
+				<div class="flex items-center gap-2">
+					<span class="w-5 h-5 rounded-full bg-indigo-600 text-white text-xs font-bold flex items-center justify-center">
+						N
+					</span>
+					<span class="text-xs font-bold text-slate-800">
+						Adsterra • Native Banner (Grid de Recomendações)
+					</span>
+				</div>
+				<span class="text-[10px] text-indigo-700 font-medium px-2 py-0.5 rounded-full bg-indigo-100">
+					4 Itens em Linha • Ativo em Produção
+				</span>
+			</div>
+
+			<!-- Grid Simulando os 4 Cards Nativos -->
+			<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+				{[1, 2, 3, 4].map((item) => (
+					<div class="bg-white rounded-xl p-2.5 border border-indigo-100 shadow-2xs flex flex-col gap-2">
+						<div class="w-full aspect-video rounded-lg bg-indigo-100/70 flex items-center justify-center text-indigo-400 text-xs font-medium">
+							Imagem {item}
+						</div>
+						<div class="space-y-1">
+							<div class="h-2.5 bg-slate-200 rounded-sm w-3/4"></div>
+							<div class="h-2 bg-slate-100 rounded-sm w-1/2"></div>
+						</div>
+					</div>
+				))}
+			</div>
+			<p class="text-[11px] text-slate-400 text-center mt-3">
+				Container ID: <code class="px-1 py-0.5 rounded bg-slate-200/50 text-[10px] font-mono">{ADSTERRA_NATIVE.containerId}</code>
+			</p>
+		</div>
+	)}
+</div>

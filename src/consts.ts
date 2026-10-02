@@ -8,6 +8,9 @@ export const CONTACT_EMAIL = 'contato@vidadepai.com.br';
 // Google AdSense Configuration
 export const ADSENSE_CLIENT_ID = import.meta.env.PUBLIC_ADSENSE_ID || 'ca-pub-3914232964314830';
 
+// Adsterra Configuration
+export const ADSTERRA_SMARTLINK_URL = 'https://arwf.org/4/d557feb5a30191bbeec81fc08b344c0d';
+
 // Web3Forms Configuration (Envio de mensagens de contato direto para o e-mail)
 // Obtenha sua chave gratuitamente em https://web3forms.com
 export const WEB3FORMS_ACCESS_KEY = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY || '';
