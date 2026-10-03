@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { AdsterraResponsiveBanner } from '../components/adsterra';
 import { SITE_TITLE, CONTACT_EMAIL, WEB3FORMS_ACCESS_KEY } from '../consts';
 ---
 
@@ -17,7 +18,10 @@ import { SITE_TITLE, CONTACT_EMAIL, WEB3FORMS_ACCESS_KEY } from '../consts';
 		<Header />
 
 		<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-1">
-			<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+			<!-- Adsterra Anúncio 1: Topo (728x90 / 320x50) -->
+			<AdsterraResponsiveBanner desktopSize="728x90" mobileSize="320x50" />
+
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-6">
 				<!-- Informações Laterais -->
 				<div class="md:col-span-1 space-y-6">
 					<div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs">
@@ -147,6 +151,11 @@ import { SITE_TITLE, CONTACT_EMAIL, WEB3FORMS_ACCESS_KEY } from '../consts';
 						</form>
 					</div>
 				</div>
+			</div>
+
+			<!-- Adsterra Anúncio 2: Rodapé (728x90 / 320x50) -->
+			<div class="mt-8">
+				<AdsterraResponsiveBanner desktopSize="728x90" mobileSize="320x50" />
 			</div>
 		</main>
 

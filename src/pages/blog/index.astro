@@ -5,7 +5,7 @@ import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
-import AdSense from '../../components/AdSense.astro';
+import { AdsterraResponsiveBanner } from '../../components/adsterra';
 import { SITE_DESCRIPTION, SITE_TITLE, CATEGORIES } from '../../consts';
 
 const posts = (await getCollection('blog')).sort(
@@ -51,8 +51,8 @@ const remainingPosts = posts.slice(1);
 				))}
 			</div>
 
-			<!-- AdSense Topo do Blog -->
-			<AdSense slotId="2345678901" slotName="Topo do Blog (Leaderboard 728x90)" format="horizontal" minHeight="90px" />
+			<!-- Adsterra Anúncio 1: Topo Responsivo (728x90 no Desktop / 320x50 no Mobile) -->
+			<AdsterraResponsiveBanner desktopSize="728x90" mobileSize="320x50" />
 
 			<!-- Post Destaque Principal -->
 			{featuredPost && (
@@ -108,8 +108,6 @@ const remainingPosts = posts.slice(1);
 				</section>
 			)}
 
-			<!-- Espaço AdSense In-Feed -->
-			<AdSense slotId="3456789012" slotName="In-Feed Entre Posts (Responsivo)" format="fluid" minHeight="120px" />
 
 			<!-- Grid dos Demais Posts -->
 			<section class="my-10">
@@ -162,8 +160,8 @@ const remainingPosts = posts.slice(1);
 				</div>
 			</section>
 
-			<!-- AdSense Rodapé -->
-			<AdSense slotId="8765432109" slotName="Rodapé do Blog (Leaderboard 728x90)" format="horizontal" minHeight="90px" />
+			<!-- Adsterra Anúncio 2: Rodapé Responsivo (728x90 no Desktop / 320x50 no Mobile) -->
+			<AdsterraResponsiveBanner desktopSize="728x90" mobileSize="320x50" />
 		</main>
 
 		<Footer />

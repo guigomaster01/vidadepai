@@ -4,7 +4,7 @@ import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import AdSense from '../components/AdSense.astro';
+import { AdsterraResponsiveBanner, AdsterraBanner } from '../components/adsterra';
 import FormattedDate from '../components/FormattedDate.astro';
 import { SITE_DESCRIPTION, SITE_TITLE, CATEGORIES } from '../consts';
 import heroPhoto from '../assets/hero-pai-bebe.jpg';
@@ -79,8 +79,8 @@ const featuredPosts = posts.slice(0, 3);
 				</div>
 			</section>
 
-			<!-- AdSense Topo da Home -->
-			<AdSense slotId="1122334455" slotName="Leaderboard Principal Home (728x90)" format="horizontal" minHeight="90px" />
+			<!-- Adsterra Anúncio 1: Topo Responsivo (728x90 no Desktop / 320x50 no Mobile) -->
+			<AdsterraResponsiveBanner desktopSize="728x90" mobileSize="320x50" />
 
 			<!-- Barra de Categorias Temáticas -->
 			<section>
@@ -176,8 +176,6 @@ const featuredPosts = posts.slice(0, 3);
 				</div>
 			</section>
 
-			<!-- AdSense Meio da Página -->
-			<AdSense slotId="5566778899" slotName="Meio da Home (Responsivo Retângulo)" format="rectangle" minHeight="250px" />
 
 			<!-- Teaser de Ferramentas nos Subdomínios -->
 			<section class="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 rounded-3xl p-8 sm:p-10 text-white shadow-lg">
@@ -236,8 +234,8 @@ const featuredPosts = posts.slice(0, 3);
 				</p>
 			</section>
 
-			<!-- AdSense Rodapé da Home -->
-			<AdSense slotId="9900112233" slotName="Rodapé Principal Home (728x90)" format="horizontal" minHeight="90px" />
+			<!-- Adsterra Anúncio 2: Rodapé Responsivo (728x90 no Desktop / 320x50 no Mobile) -->
+			<AdsterraResponsiveBanner desktopSize="728x90" mobileSize="320x50" />
 		</main>
 
 		<Footer />

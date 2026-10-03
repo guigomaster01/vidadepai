@@ -2,7 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import AdSense from '../components/AdSense.astro';
+import { AdsterraResponsiveBanner } from '../components/adsterra';
 import { SITE_TITLE } from '../consts';
 
 const plannedTools = [
@@ -62,8 +62,8 @@ const plannedTools = [
 				</p>
 			</div>
 
-			<!-- Espaço Publicitário Superior -->
-			<AdSense slotId="4567891230" slotName="Topo das Ferramentas (728x90)" format="horizontal" minHeight="90px" />
+			<!-- Adsterra Anúncio 1: Topo das Ferramentas (728x90 / 320x50) -->
+			<AdsterraResponsiveBanner desktopSize="728x90" mobileSize="320x50" />
 
 			<!-- Mini Ferramenta Interativa Ao Vivo: Calculadora de Fraldas -->
 			<div class="my-10 bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
@@ -183,8 +183,8 @@ const plannedTools = [
 				</div>
 			</div>
 
-			<!-- AdSense Inferior -->
-			<AdSense slotId="7890123456" slotName="Rodapé das Ferramentas (Responsivo)" minHeight="120px" />
+			<!-- Adsterra Anúncio 2: Rodapé das Ferramentas (728x90 / 320x50) -->
+			<AdsterraResponsiveBanner desktopSize="728x90" mobileSize="320x50" />
 		</main>
 
 		<Footer />

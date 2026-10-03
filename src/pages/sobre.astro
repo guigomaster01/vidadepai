@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { AdsterraResponsiveBanner } from '../components/adsterra';
 import { Image } from 'astro:assets';
 import { SITE_TITLE } from '../consts';
 import heroImage from '../assets/hero-pai-bebe.jpg';
@@ -21,7 +22,10 @@ import readingImage from '../assets/pai-filho-atividades.jpg';
 		<Header />
 
 		<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-1">
-			<article class="bg-white rounded-2xl p-6 sm:p-10 shadow-xs border border-slate-200">
+			<!-- Adsterra Anúncio 1: Topo (728x90 / 320x50) -->
+			<AdsterraResponsiveBanner desktopSize="728x90" mobileSize="320x50" />
+
+			<article class="bg-white rounded-2xl p-6 sm:p-10 shadow-xs border border-slate-200 mt-6">
 				<!-- Top Header -->
 				<header class="mb-10 text-center">
 					<span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-3 py-1.5 rounded-full border border-blue-200/60">
@@ -106,6 +110,11 @@ import readingImage from '../assets/pai-filho-atividades.jpg';
 					</div>
 				</div>
 			</article>
+
+			<!-- Adsterra Anúncio 2: Rodapé (728x90 / 320x50) -->
+			<div class="mt-8">
+				<AdsterraResponsiveBanner desktopSize="728x90" mobileSize="320x50" />
+			</div>
 		</main>
 
 		<Footer />
