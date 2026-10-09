@@ -18,6 +18,8 @@ const blog = defineCollection({
 			author: z.string().default('Equipe Vida de Pai'),
 			readTime: z.string().default('4 min de leitura'),
 			featured: z.boolean().default(false),
+			tags: z.array(z.string()).optional(),
+			draft: z.boolean().optional(),
 		}),
 });
 
