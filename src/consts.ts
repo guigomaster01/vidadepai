@@ -13,7 +13,7 @@ export const ADSTERRA_SMARTLINK_URL = 'https://arwf.org/4/d557feb5a30191bbeec81f
 
 // Web3Forms Configuration (Envio de mensagens de contato direto para o e-mail)
 // Obtenha sua chave gratuitamente em https://web3forms.com
-export const WEB3FORMS_ACCESS_KEY = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY || '';
+export const WEB3FORMS_ACCESS_KEY = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY || 'ef0c5c3a-b7c0-4b25-91c2-a4d7710c357d';
 
 // Categorias principais do blog
 export const CATEGORIES = [
