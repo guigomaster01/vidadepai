@@ -1,0 +1,590 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { AdsterraResponsiveBanner } from '../components/adsterra';
+import { SITE_TITLE } from '../consts';
+
+const pageTitle = `Extrator de E-mails Gratuito e Online | ${SITE_TITLE}`;
+const pageDescription = 'Extraia, filtre e organize endereços de e-mail de qualquer bloco de texto em segundos. Ferramenta gratuita, sem limites e 100% segura com processamento local.';
+---
+
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<BaseHead
+			title={pageTitle}
+			description={pageDescription}
+		/>
+	</head>
+	<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+		<Header />
+
+		<main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex-1 w-full">
+			<!-- Breadcrumbs -->
+			<nav class="flex items-center gap-2 text-xs text-slate-500 mb-6">
+				<a href="/" class="hover:text-blue-600 transition-colors">Início</a>
+				<span>/</span>
+				<a href="/ferramentas" class="hover:text-blue-600 transition-colors">Ferramentas</a>
+				<span>/</span>
+				<span class="text-slate-700 font-medium">Extrator de E-mails</span>
+			</nav>
+
+			<!-- Header da Ferramenta -->
+			<div class="text-center max-w-3xl mx-auto mb-8">
+				<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-semibold uppercase tracking-wider mb-3">
+					<svg class="w-4 h-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+					</svg>
+					Ferramenta Gratuita & Segura
+				</div>
+				<h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+					Extrator de E-mails Online
+				</h1>
+				<p class="text-sm sm:text-base text-slate-600 mt-3 leading-relaxed">
+					Cole qualquer texto bruto, lista desorganizada ou arquivo abaixo. Nossa ferramenta encontra, limpa, remove duplicados e formata todos os e-mails automaticamente em milissegundos.
+				</p>
+			</div>
+
+			<!-- ========================================== -->
+			<!-- BANNER 1: MONETIZAÇÃO SUPERIOR (RESPONSIVO) -->
+			<!-- ========================================== -->
+			<section class="my-6" aria-label="Espaço Publicitário Topo">
+				<AdsterraResponsiveBanner desktopSize="728x90" mobileSize="320x50" label="Publicidade" />
+			</section>
+
+			<!-- Container Principal da Ferramenta -->
+			<div class="bg-white rounded-2xl p-5 sm:p-8 border border-slate-200/90 shadow-sm mt-6 mb-8 transition-shadow hover:shadow-md">
+				
+				<!-- Barra Superior de Ações Rápidas -->
+				<div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-5 border-b border-slate-100">
+					<div class="flex items-center gap-2">
+						<span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-blue-100 text-blue-700 font-bold text-xs">
+							@
+						</span>
+						<span class="text-sm font-bold text-slate-800">
+							Área de Extração
+						</span>
+					</div>
+
+					<div class="flex items-center gap-2">
+						<button
+							id="btn-sample"
+							type="button"
+							class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 hover:text-slate-900 rounded-lg transition-colors cursor-pointer"
+							title="Carregar texto de exemplo para teste rápido"
+						>
+							<svg class="w-3.5 h-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+							</svg>
+							Carregar Exemplo
+						</button>
+						<button
+							id="btn-clear"
+							type="button"
+							class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-rose-600 bg-rose-50 hover:bg-rose-100 rounded-lg transition-colors cursor-pointer"
+							title="Limpar todos os campos"
+						>
+							<svg class="w-3.5 h-3.5 text-rose-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+							</svg>
+							Limpar
+						</button>
+					</div>
+				</div>
+
+				<!-- Grid: Texto de Entrada e E-mails Extraídos -->
+				<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+					
+					<!-- Coluna 1: Entrada -->
+					<div class="flex flex-col">
+						<div class="flex items-center justify-between mb-2">
+							<label for="inputText" class="text-xs font-bold uppercase tracking-wider text-slate-700">
+								Texto de Entrada:
+							</label>
+							<span id="input-char-count" class="text-[11px] text-slate-400">
+								0 caracteres
+							</span>
+						</div>
+						<textarea
+							id="inputText"
+							class="w-full h-56 sm:h-64 p-3.5 text-sm font-mono text-slate-800 bg-slate-50/70 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all resize-y placeholder:text-slate-400 leading-relaxed"
+							placeholder="Cole qualquer texto aqui com e-mails misturados no conteúdo...
+Exemplo:
+Contato de teste: carlos@empresa.com.br
+Outro e-mail: maria.silva@gmail.com; ana@contato.org
+Envie dúvidas para suporte@vidadepai.com.br"
+						></textarea>
+					</div>
+
+					<!-- Coluna 2: Saída -->
+					<div class="flex flex-col">
+						<div class="flex items-center justify-between mb-2">
+							<label for="outputText" class="text-xs font-bold uppercase tracking-wider text-slate-700">
+								E-mails Extraídos:
+							</label>
+							<span id="counter" class="text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">
+								0 e-mails encontrados
+							</span>
+						</div>
+						<textarea
+							id="outputText"
+							readonly
+							class="w-full h-56 sm:h-64 p-3.5 text-sm font-mono text-slate-900 bg-slate-100/80 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all resize-y placeholder:text-slate-400 leading-relaxed"
+							placeholder="Os e-mails encontrados e formatados aparecerão aqui prontos para copiar..."
+						></textarea>
+					</div>
+				</div>
+
+				<!-- Barra de Controles e Opções -->
+				<div class="mt-6 pt-5 border-t border-slate-100 flex flex-col gap-5">
+					
+					<!-- Linha de Botões de Ação -->
+					<div class="flex flex-wrap items-center gap-3">
+						<button
+							id="btn-extract"
+							type="button"
+							class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm hover:shadow transition-all cursor-pointer active:scale-98"
+						>
+							<svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+							</svg>
+							Extrair E-mails
+						</button>
+
+						<button
+							id="btn-copy"
+							type="button"
+							class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold text-sm rounded-xl shadow-sm hover:shadow transition-all cursor-pointer active:scale-98"
+						>
+							<svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+							</svg>
+							Copiar Resultado
+						</button>
+
+						<button
+							id="btn-download"
+							type="button"
+							class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm rounded-xl shadow-sm hover:shadow transition-all cursor-pointer active:scale-98"
+						>
+							<svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+							</svg>
+							Baixar Lista (.txt)
+						</button>
+					</div>
+
+					<!-- Linha de Opções de Formatação -->
+					<div class="flex flex-wrap items-center gap-y-3 gap-x-6 p-4 rounded-xl bg-slate-50 border border-slate-200/80 text-xs text-slate-700">
+						<div class="flex items-center gap-2">
+							<label for="separator" class="font-semibold text-slate-800">
+								Separador:
+							</label>
+							<select
+								id="separator"
+								class="px-3 py-1.5 rounded-lg border border-slate-300 bg-white text-slate-800 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-blue-600 cursor-pointer"
+							>
+								<option value="\n">Quebra de Linha (Enter)</option>
+								<option value=", ">Vírgula (, )</option>
+								<option value="; ">Ponto e vírgula (; )</option>
+								<option value=" ">Espaço simples ( )</option>
+								<option value=",">Vírgula sem espaço (,)</option>
+							</select>
+						</div>
+
+						<label class="inline-flex items-center gap-2 font-medium cursor-pointer select-none">
+							<input
+								type="checkbox"
+								id="removeDuplicates"
+								checked
+								class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
+							/>
+							Remover duplicados
+						</label>
+
+						<label class="inline-flex items-center gap-2 font-medium cursor-pointer select-none">
+							<input
+								type="checkbox"
+								id="sortAlphabetical"
+								checked
+								class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
+							/>
+							Ordem alfabética (A-Z)
+						</label>
+
+						<label class="inline-flex items-center gap-2 font-medium cursor-pointer select-none">
+							<input
+								type="checkbox"
+								id="toLowerCase"
+								checked
+								class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
+							/>
+							Minúsculas
+						</label>
+
+						<label class="inline-flex items-center gap-2 font-medium cursor-pointer select-none text-blue-700">
+							<input
+								type="checkbox"
+								id="liveExtract"
+								checked
+								class="w-4 h-4 rounded border-blue-400 text-blue-600 focus:ring-blue-500 cursor-pointer"
+							/>
+							Extração instantânea ao colar
+						</label>
+					</div>
+
+					<!-- Resumo Estatístico Dinâmico -->
+					<div id="stats-summary" class="hidden flex-wrap items-center gap-2 text-xs pt-1">
+						<span class="text-slate-500">Resumo:</span>
+						<span id="badge-total" class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 font-medium"></span>
+						<span id="badge-unique" class="px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-200 font-medium"></span>
+						<span id="badge-domains" class="px-2.5 py-1 rounded-md bg-indigo-50 text-indigo-800 border border-indigo-200 font-medium"></span>
+					</div>
+				</div>
+
+			</div>
+
+			<!-- Toast de Notificação Flutuante -->
+			<div
+				id="toast"
+				class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none bg-slate-900 text-white text-xs font-semibold px-4 py-3 rounded-xl shadow-xl flex items-center gap-2 border border-slate-700"
+			>
+				<svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+				</svg>
+				<span id="toast-message">Copiado com sucesso!</span>
+			</div>
+
+			<!-- ========================================== -->
+			<!-- BANNER 2: MONETIZAÇÃO INFERIOR (RESPONSIVO) -->
+			<!-- ========================================== -->
+			<section class="my-8" aria-label="Espaço Publicitário Rodapé da Ferramenta">
+				<AdsterraResponsiveBanner desktopSize="728x90" mobileSize="320x50" label="Publicidade" />
+			</section>
+
+			<!-- Seção Educativa e SEO -->
+			<section class="mt-12 space-y-8">
+				
+				<!-- Grid de Vantagens e Recursos -->
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+					<div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-2xs">
+						<div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4">
+							<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+							</svg>
+						</div>
+						<h3 class="text-base font-bold text-slate-900 mb-1.5">
+							100% Seguro & Privado
+						</h3>
+						<p class="text-xs text-slate-600 leading-relaxed">
+							Toda a extração é processada localmente no seu próprio navegador via JavaScript. Nenhum e-mail ou texto colado é enviado para servidores externos.
+						</p>
+					</div>
+
+					<div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-2xs">
+						<div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4">
+							<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+							</svg>
+						</div>
+						<h3 class="text-base font-bold text-slate-900 mb-1.5">
+							Limpeza e Desduplicação
+						</h3>
+						<p class="text-xs text-slate-600 leading-relaxed">
+							Elimine contatos repetidos e padronize maiúsculas e minúsculas com um clique. Ordene de A a Z para manter listas organizadas.
+						</p>
+					</div>
+
+					<div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-2xs">
+						<div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center mb-4">
+							<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+							</svg>
+						</div>
+						<h3 class="text-base font-bold text-slate-900 mb-1.5">
+							Velocidade Instantânea
+						</h3>
+						<p class="text-xs text-slate-600 leading-relaxed">
+							Projetado com algoritmos regex de alta performance capazes de analisar milhares de linhas e dezenas de milhares de caracteres em segundos.
+						</p>
+					</div>
+				</div>
+
+				<!-- Como Usar e Dicas -->
+				<div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-2xs">
+					<h2 class="text-xl sm:text-2xl font-bold text-slate-900 mb-4">
+						Como usar o Extrator de E-mails Passo a Passo
+					</h2>
+					<ol class="space-y-3 text-sm text-slate-600 list-decimal list-inside">
+						<li>
+							<strong class="text-slate-800">Cole seu conteúdo:</strong> Selecione e cole o texto desordenado (conversas do WhatsApp, planilhas do Excel, relatórios ou código HTML) no campo "Texto de Entrada".
+						</li>
+						<li>
+							<strong class="text-slate-800">Ajuste o formato:</strong> Escolha como deseja separar os e-mails (quebra de linha, vírgula ou ponto e vírgula) e ative a remoção de duplicados se necessário.
+						</li>
+						<li>
+							<strong class="text-slate-800">Copie ou baixe o resultado:</strong> Clique em "Copiar Resultado" para colar no seu gerenciador de e-mails ou em "Baixar Lista (.txt)" para salvar no seu computador.
+						</li>
+					</ol>
+				</div>
+
+				<!-- FAQ / Perguntas Frequentes -->
+				<div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-2xs">
+					<h2 class="text-xl sm:text-2xl font-bold text-slate-900 mb-6">
+						Perguntas Frequentes (FAQ)
+					</h2>
+					<div class="space-y-4">
+						<div class="p-4 rounded-xl bg-slate-50 border border-slate-100">
+							<h4 class="text-sm font-bold text-slate-900 mb-1">
+								Existe algum limite na quantidade de e-mails?
+							</h4>
+							<p class="text-xs text-slate-600 leading-relaxed">
+								Não. Como o processamento acontece diretamente na memória do seu navegador, você pode processar listas com milhares de endereços sem custos ou restrições.
+							</p>
+						</div>
+
+						<div class="p-4 rounded-xl bg-slate-50 border border-slate-100">
+							<h4 class="text-sm font-bold text-slate-900 mb-1">
+								Meus e-mails e dados ficam salvos em algum servidor?
+							</h4>
+							<p class="text-xs text-slate-600 leading-relaxed">
+								Absolutamente não. Em total conformidade com a LGPD e privacidade, nenhum dado digitado ou colado é transmitido pela internet. O código roda 100% no seu dispositivo.
+							</p>
+						</div>
+
+						<div class="p-4 rounded-xl bg-slate-50 border border-slate-100">
+							<h4 class="text-sm font-bold text-slate-900 mb-1">
+								Quais formatos de e-mail são reconhecidos?
+							</h4>
+							<p class="text-xs text-slate-600 leading-relaxed">
+								A ferramenta utiliza expressão regular avançada (RFC 5322 simplificada) que reconhece formatos com pontuações válidas (pontos, sublinhados, hífens) e todos os domínios internacionais e nacionais (.com, .br, .org, .gov, .edu, .io, entre outros).
+							</p>
+						</div>
+					</div>
+				</div>
+
+			</section>
+		</main>
+
+		<Footer />
+
+		<!-- Lógica do Extrator de E-mails -->
+		<script>
+			const inputEl = document.getElementById('inputText') as HTMLTextAreaElement;
+			const outputEl = document.getElementById('outputText') as HTMLTextAreaElement;
+			const separatorEl = document.getElementById('separator') as HTMLSelectElement;
+			const removeDupesEl = document.getElementById('removeDuplicates') as HTMLInputElement;
+			const sortAlphaEl = document.getElementById('sortAlphabetical') as HTMLInputElement;
+			const toLowerCaseEl = document.getElementById('toLowerCase') as HTMLInputElement;
+			const liveExtractEl = document.getElementById('liveExtract') as HTMLInputElement;
+
+			const btnExtract = document.getElementById('btn-extract');
+			const btnCopy = document.getElementById('btn-copy');
+			const btnDownload = document.getElementById('btn-download');
+			const btnClear = document.getElementById('btn-clear');
+			const btnSample = document.getElementById('btn-sample');
+
+			const counterEl = document.getElementById('counter');
+			const charCountEl = document.getElementById('input-char-count');
+			const statsSummaryEl = document.getElementById('stats-summary');
+			const badgeTotalEl = document.getElementById('badge-total');
+			const badgeUniqueEl = document.getElementById('badge-unique');
+			const badgeDomainsEl = document.getElementById('badge-domains');
+
+			const toastEl = document.getElementById('toast');
+			const toastMsgEl = document.getElementById('toast-message');
+
+			let toastTimer: number | undefined;
+
+			function showToast(msg: string) {
+				if (!toastEl || !toastMsgEl) return;
+				toastMsgEl.textContent = msg;
+				toastEl.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+				toastEl.classList.add('translate-y-0', 'opacity-100');
+
+				if (toastTimer) clearTimeout(toastTimer);
+				toastTimer = window.setTimeout(() => {
+					toastEl.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+					toastEl.classList.remove('translate-y-0', 'opacity-100');
+				}, 2600);
+			}
+
+			function extrairEmails() {
+				if (!inputEl || !outputEl || !counterEl) return;
+
+				const texto = inputEl.value;
+				const removeDupes = removeDupesEl?.checked ?? true;
+				const sortAlpha = sortAlphaEl?.checked ?? true;
+				const toLower = toLowerCaseEl?.checked ?? true;
+				const sepValue = separatorEl?.value ?? '\\n';
+
+				const separador = sepValue === '\\n' ? '\n' : sepValue;
+
+				// Atualiza contagem de caracteres de entrada
+				if (charCountEl) {
+					charCountEl.textContent = `${texto.length.toLocaleString('pt-BR')} caracteres`;
+				}
+
+				if (!texto.trim()) {
+					outputEl.value = '';
+					counterEl.textContent = '0 e-mails encontrados';
+					if (statsSummaryEl) statsSummaryEl.classList.add('hidden');
+					return;
+				}
+
+				// Regex RFC 5322 simplificado
+				const regexEmail = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+				let matches = texto.match(regexEmail) || [];
+				const rawTotal = matches.length;
+
+				// Normalização em minúsculas
+				if (toLower) {
+					matches = matches.map((e) => e.toLowerCase());
+				}
+
+				// Contagem de domínios distintos
+				const domainCounts = new Map<string, number>();
+				matches.forEach((e) => {
+					const parts = e.split('@');
+					if (parts[1]) {
+						const domain = parts[1].toLowerCase();
+						domainCounts.set(domain, (domainCounts.get(domain) || 0) + 1);
+					}
+				});
+
+				// Remoção de duplicados
+				if (removeDupes) {
+					matches = Array.from(new Set(matches));
+				}
+
+				// Ordenação alfabética
+				if (sortAlpha) {
+					matches.sort((a, b) => a.localeCompare(b));
+				}
+
+				// Atualiza textarea de resultado
+				outputEl.value = matches.join(separador);
+
+				// Atualiza contador principal
+				const count = matches.length;
+				counterEl.textContent = `${count} ${count === 1 ? 'e-mail encontrado' : 'e-mails encontrados'}`;
+
+				// Atualiza resumo estatístico
+				if (statsSummaryEl && badgeTotalEl && badgeUniqueEl && badgeDomainsEl) {
+					if (rawTotal > 0) {
+						statsSummaryEl.classList.remove('hidden');
+						badgeTotalEl.textContent = `Total no texto: ${rawTotal}`;
+						badgeUniqueEl.textContent = `Únicos: ${new Set(matches).size}`;
+						badgeDomainsEl.textContent = `Domínios: ${domainCounts.size}`;
+					} else {
+						statsSummaryEl.classList.add('hidden');
+					}
+				}
+			}
+
+			function copiarResultado() {
+				if (!outputEl) return;
+				const val = outputEl.value.trim();
+				if (!val) {
+					showToast('Nenhum e-mail para copiar!');
+					return;
+				}
+
+				if (navigator.clipboard && navigator.clipboard.writeText) {
+					navigator.clipboard.writeText(val).then(() => {
+						showToast('✓ E-mails copiados para a área de transferência!');
+					}).catch(() => {
+						copiarFallback(val);
+					});
+				} else {
+					copiarFallback(val);
+				}
+			}
+
+			function copiarFallback(text: string) {
+				outputEl.select();
+				document.execCommand('copy');
+				showToast('✓ E-mails copiados para a área de transferência!');
+			}
+
+			function baixarArquivo() {
+				if (!outputEl) return;
+				const val = outputEl.value.trim();
+				if (!val) {
+					showToast('Nenhum e-mail para baixar!');
+					return;
+				}
+
+				const blob = new Blob([val], { type: 'text/plain;charset=utf-8' });
+				const url = URL.createObjectURL(blob);
+				const link = document.createElement('a');
+				link.href = url;
+				link.download = `emails-extraidos-${new Date().toISOString().slice(0, 10)}.txt`;
+				document.body.appendChild(link);
+				link.click();
+				document.body.removeChild(link);
+				URL.revokeObjectURL(url);
+				showToast('✓ Arquivo .txt gerado com sucesso!');
+			}
+
+			function limparCampos() {
+				if (inputEl) inputEl.value = '';
+				if (outputEl) outputEl.value = '';
+				if (counterEl) counterEl.textContent = '0 e-mails encontrados';
+				if (charCountEl) charCountEl.textContent = '0 caracteres';
+				if (statsSummaryEl) statsSummaryEl.classList.add('hidden');
+				if (inputEl) inputEl.focus();
+				showToast('Campos limpos com sucesso.');
+			}
+
+			function carregarExemplo() {
+				if (!inputEl) return;
+				inputEl.value = `Relatório de Contatos - Lista Mista da Semana:
+
+Prezados parceiros,
+Segue a lista de contatos para envio do boletim:
+- Diretor comercial: marcos.antonio@empresa.com.br
+- Atendimento e SAC: contato@lojaexemplo.com.br ou suporte@lojaexemplo.com.br
+- Assessoria de imprensa: Fernanda <fernanda.imprensa@gmail.com>
+- Contato repetido para teste: marcos.antonio@empresa.com.br
+- Participantes cadastrados:
+  * rodrigo.pai@hotmail.com
+  * beatriz_leal@outlook.com
+  * atendimento@vidadepai.com.br
+  * BEATRIZ_LEAL@OUTLOOK.COM (teste de maiúscula)
+  * joao.pedro123@yahoo.com.br
+
+Para mais informações, contate admin@vidadepai.com.br.`;
+
+				extrairEmails();
+				showToast('Exemplo carregado!');
+			}
+
+			// Event Listeners
+			btnExtract?.addEventListener('click', extrairEmails);
+			btnCopy?.addEventListener('click', copiarResultado);
+			btnDownload?.addEventListener('click', baixarArquivo);
+			btnClear?.addEventListener('click', limparCampos);
+			btnSample?.addEventListener('click', carregarExemplo);
+
+			separatorEl?.addEventListener('change', extrairEmails);
+			removeDupesEl?.addEventListener('change', extrairEmails);
+			sortAlphaEl?.addEventListener('change', extrairEmails);
+			toLowerCaseEl?.addEventListener('change', extrairEmails);
+
+			inputEl?.addEventListener('input', () => {
+				if (charCountEl && inputEl) {
+					charCountEl.textContent = `${inputEl.value.length.toLocaleString('pt-BR')} caracteres`;
+				}
+				if (liveExtractEl?.checked) {
+					extrairEmails();
+				}
+			});
+
+			liveExtractEl?.addEventListener('change', () => {
+				if (liveExtractEl.checked) extrairEmails();
+			});
+		</script>
+	</body>
+</html>
