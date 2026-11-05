@@ -13,13 +13,66 @@ const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 
-const featuredPosts = posts.slice(0, 3);
+const featuredPosts = posts.slice(0, 6);
+const pillarSlugs = [
+	'guia-pai-primeira-viagem',
+	'lei-15371-nova-licenca-paternidade-guia-completo',
+	'sono-do-bebe-dicas-praticas',
+	'planejamento-financeiro-chegada-do-bebe',
+	'educacao-positiva-limites-com-amor',
+	'voce-nao-tem-tempo-para-ficar-doente',
+];
+const pillarPosts = pillarSlugs
+	.map((slug) => posts.find((p) => p.id === slug))
+	.filter((p): p is NonNullable<typeof p> => Boolean(p));
+
+const faqItems = [
+	{
+		question: 'Quantos dias dura a nova licença-paternidade no Brasil (Lei 15.371)?',
+		answer:
+			'Com a sanção da Lei 15.371, a licença-paternidade no Brasil aumenta de forma gradual: passa para 10 dias corridos a partir de 2027, 15 dias em 2028 e chega a 20 dias corridos a partir de 2029, com salário-paternidade pago pelo INSS e estabilidade no emprego após o retorno.',
+	},
+	{
+		question: 'Como o pai de primeira viagem pode ajudar nos primeiros dias do bebê?',
+		answer:
+			'O pai é protagonista nos cuidados diários: assumir as trocas de fraldas, colocar o bebê para arrotar após as mamadas, dar banho, cuidar da hidratação e alimentação da mãe durante a amamentação, filtrar visitas e garantir um ambiente calmo para o sono da família.',
+	},
+	{
+		question: 'Quantas fraldas um bebê recém-nascido usa por dia?',
+		answer:
+			'Um recém-nascido (0 a 1 mês) utiliza em média de 8 a 10 fraldas por dia (cerca de 240 por mês). Entre 1 e 3 meses a média cai para 7 fraldas diárias, e dos 4 aos 9 meses estabiliza em cerca de 6 fraldas por dia.',
+	},
+	{
+		question: 'Como melhorar o sono do bebê nos primeiros meses?',
+		answer:
+			'Criar um ritual noturno previsível (banho morno, meia-luz e ruído branco), respeitar as janelas de sono adequadas para cada faixa etária e diferenciar claramente o dia (com luz natural) da noite (ambiente escuro e silencioso) são os passos mais eficazes.',
+	},
+];
+
+const faqSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	mainEntity: faqItems.map((item) => ({
+		'@type': 'Question',
+		name: item.question,
+		acceptedAnswer: {
+			'@type': 'Answer',
+			text: item.answer,
+		},
+	})),
+};
 ---
 
 <!doctype html>
 <html lang="pt-BR">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} image={heroPhoto} />
+		<BaseHead
+			title={SITE_TITLE}
+			description={SITE_DESCRIPTION}
+			image={heroPhoto}
+			imageAlt="Pai segurando bebê com sorriso carinhoso em casa"
+			schema={faqSchema}
+		/>
 	</head>
 	<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
 		<Header />
@@ -64,6 +117,8 @@ const featuredPosts = posts.slice(0, 3);
 							<Image
 								src={heroPhoto}
 								alt="Pai segurando bebê com sorriso carinhoso em casa"
+								loading="eager"
+								fetchpriority="high"
 								class="w-full h-auto object-cover max-h-[380px]"
 							/>
 						</div>
@@ -95,7 +150,7 @@ const featuredPosts = posts.slice(0, 3);
 				<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
 					{CATEGORIES.map((cat) => (
 						<a
-							href="/blog"
+							href={`/blog#${cat.slug}`}
 							class="p-4 rounded-2xl bg-white border border-slate-200/90 hover:border-blue-400 hover:shadow-xs transition-all text-center group"
 						>
 							<span class="block text-sm font-bold text-slate-800 group-hover:text-blue-700 transition-colors">
@@ -177,6 +232,52 @@ const featuredPosts = posts.slice(0, 3);
 			</section>
 
 
+			<!-- Guias Essenciais (Conteúdo Pilar SEO) -->
+			{pillarPosts.length > 0 && (
+				<section class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xs">
+					<div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6">
+						<div>
+							<span class="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200">
+								Leitura Essencial
+							</span>
+							<h2 class="text-2xl font-black text-slate-900 mt-2">
+								Guias Fundamentais para Todo Pai
+							</h2>
+							<p class="text-xs text-slate-500 mt-0.5">
+								Os conteúdos mais completos sobre licença-paternidade, primeiros meses, sono, saúde e finanças da família
+							</p>
+						</div>
+						<a href="/blog" class="text-xs font-bold text-blue-600 hover:text-blue-800">
+							Explorar acervo completo →
+						</a>
+					</div>
+
+					<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+						{pillarPosts.map((post) => (
+							<a
+								href={`/blog/${post.id}/`}
+								class="group p-4 rounded-2xl bg-slate-50 hover:bg-blue-50/50 border border-slate-200/80 hover:border-blue-300 transition-all flex flex-col justify-between"
+							>
+								<div>
+									<span class="text-[10px] font-bold uppercase tracking-wider text-blue-700">
+										{post.data.category}
+									</span>
+									<h3 class="text-sm font-bold text-slate-900 group-hover:text-blue-700 transition-colors mt-1 leading-snug">
+										{post.data.title}
+									</h3>
+									<p class="text-xs text-slate-600 line-clamp-2 mt-1.5 leading-relaxed">
+										{post.data.description}
+									</p>
+								</div>
+								<span class="text-[11px] font-bold text-blue-600 mt-3 inline-block">
+									Acessar guia →
+								</span>
+							</a>
+						))}
+					</div>
+				</section>
+			)}
+
 			<!-- Teaser de Ferramentas nos Subdomínios -->
 			<section class="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 rounded-3xl p-8 sm:p-10 text-white shadow-lg">
 				<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -200,6 +301,34 @@ const featuredPosts = posts.slice(0, 3);
 							Conhecer Ferramentas →
 						</a>
 					</div>
+				</div>
+			</section>
+
+			<!-- Perguntas Frequentes (FAQ com Schema.org para Google Rich Snippets) -->
+			<section class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xs" aria-labelledby="faq-heading">
+				<div class="text-center max-w-2xl mx-auto mb-8">
+					<span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+						Dúvidas Frequentes
+					</span>
+					<h2 id="faq-heading" class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3">
+						Perguntas Frequentes sobre Paternidade
+					</h2>
+					<p class="text-xs sm:text-sm text-slate-600 mt-1">
+						Respostas rápidas e diretas para as principais dúvidas dos pais brasileiros
+					</p>
+				</div>
+
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+					{faqItems.map((item) => (
+						<div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/80">
+							<h3 class="text-sm sm:text-base font-bold text-slate-900 mb-2">
+								{item.question}
+							</h3>
+							<p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+								{item.answer}
+							</p>
+						</div>
+					))}
 				</div>
 			</section>
 

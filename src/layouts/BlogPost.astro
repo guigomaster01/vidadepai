@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import type { CollectionEntry } from 'astro:content';
+import { type CollectionEntry, getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
@@ -26,26 +26,64 @@ const {
 	category = 'Paternidade',
 	author = 'Equipe Vida de Pai',
 	readTime = '5 min de leitura',
+	tags = [],
 } = Astro.props;
+
+const allPosts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const otherPosts = allPosts.filter((p) => p.data.title !== title);
+const sameCategoryPosts = otherPosts.filter((p) => p.data.category === category);
+const otherCategoryPosts = otherPosts.filter((p) => p.data.category !== category);
+const relatedPosts = [...sameCategoryPosts, ...otherCategoryPosts].slice(0, 3);
+const sidebarRecentPosts = otherPosts.slice(0, 4);
+
+const breadcrumbs = [
+	{ name: 'Início', url: '/' },
+	{ name: 'Artigos', url: '/blog' },
+	{ name: category, url: '/blog' },
+	{ name: title, url: Astro.url.pathname },
+];
 ---
 
 <!doctype html>
 <html lang="pt-BR">
 	<head>
-		<BaseHead title={`${title} | Vida de Pai`} description={description} image={heroImage} />
+		<BaseHead
+			title={`${title} | Vida de Pai`}
+			description={description}
+			image={heroImage}
+			imageAlt={title}
+			type="article"
+			publishedTime={pubDate}
+			modifiedTime={updatedDate}
+			author={author}
+			section={category}
+			tags={tags}
+			breadcrumbs={breadcrumbs}
+		/>
 	</head>
 
 	<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
 		<Header />
 
 		<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex-1 w-full">
-			<!-- Breadcrumbs -->
-			<nav class="flex items-center gap-2 text-xs text-slate-500 mb-6">
-				<a href="/" class="hover:text-blue-600 transition-colors">Início</a>
-				<span>/</span>
-				<a href="/blog" class="hover:text-blue-600 transition-colors">Artigos</a>
-				<span>/</span>
-				<span class="text-slate-700 font-medium">{category}</span>
+			<!-- Breadcrumbs Semânticos -->
+			<nav aria-label="Breadcrumb" class="mb-6">
+				<ol class="flex flex-wrap items-center gap-2 text-xs text-slate-500">
+					<li>
+						<a href="/" class="hover:text-blue-600 transition-colors">Início</a>
+					</li>
+					<li aria-hidden="true">/</li>
+					<li>
+						<a href="/blog" class="hover:text-blue-600 transition-colors">Artigos</a>
+					</li>
+					<li aria-hidden="true">/</li>
+					<li>
+						<a href="/blog" class="text-slate-700 font-medium hover:text-blue-600 transition-colors">{category}</a>
+					</li>
+				</ol>
 			</nav>
 
 			<!-- Adsterra Top Leaderboard Responsivo (728x90 no Desktop / 320x50 no Mobile) -->
@@ -106,6 +144,8 @@ const {
 								height={510}
 								src={heroImage}
 								alt={title}
+								loading="eager"
+								fetchpriority="high"
 								class="w-full h-auto object-cover max-h-[480px]"
 							/>
 						</div>
@@ -116,8 +156,25 @@ const {
 						<slot />
 					</div>
 
+					<!-- Tags / Tópicos do Artigo para Relevância Semântica -->
+					{tags && tags.length > 0 && (
+						<div class="mt-10 pt-6 border-t border-slate-100 flex flex-wrap items-center gap-2">
+							<span class="text-xs font-bold uppercase tracking-wider text-slate-500 mr-1">
+								Tópicos:
+							</span>
+							{tags.map((tag) => (
+								<a
+									href="/blog"
+									class="text-xs px-3 py-1 rounded-full bg-slate-100 text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors font-medium"
+								>
+									#{tag}
+								</a>
+							))}
+						</div>
+					)}
+
 					<!-- In-Article / Post Bottom Adsterra Banner -->
-					<div class="mt-12 pt-8 border-t border-slate-100 flex justify-center">
+					<div class="mt-10 pt-8 border-t border-slate-100 flex justify-center">
 						<AdsterraBanner size="300x250" label="Publicidade" />
 					</div>
 
@@ -129,10 +186,59 @@ const {
 						<div class="text-center sm:text-left">
 							<h3 class="font-bold text-slate-900 text-sm">Sobre o Vida de Pai</h3>
 							<p class="text-xs text-slate-600 mt-1 leading-relaxed">
-								Criado por pais para apoiar outros pais. Acreditamos na paternidade presente, carinhosa, parceira e descomplicada.
+								Criado por pais para apoiar outros pais. Acreditamos na paternidade presente, carinhosa, parceira e descomplicada. <a href="/sobre" class="text-blue-600 font-semibold hover:underline">Conheça nossa missão →</a>
 							</p>
 						</div>
 					</div>
+
+					<!-- Artigos Relacionados (Linkagem Interna SEO) -->
+					{relatedPosts.length > 0 && (
+						<section class="mt-12 pt-8 border-t border-slate-200" aria-labelledby="related-posts-heading">
+							<div class="flex items-center justify-between mb-6">
+								<h2 id="related-posts-heading" class="text-xl font-extrabold text-slate-900">
+									Leia Também sobre Paternidade
+								</h2>
+								<a href="/blog" class="text-xs font-bold text-blue-600 hover:text-blue-800">
+									Ver todos →
+								</a>
+							</div>
+							<div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+								{relatedPosts.map((relPost) => (
+									<article class="bg-slate-50/80 rounded-2xl border border-slate-200/80 hover:border-blue-400 transition-all overflow-hidden flex flex-col justify-between">
+										<div>
+											{relPost.data.heroImage && (
+												<a href={`/blog/${relPost.id}/`} class="block overflow-hidden">
+													<Image
+														width={400}
+														height={225}
+														src={relPost.data.heroImage}
+														alt={relPost.data.title}
+														class="w-full h-32 object-cover hover:scale-105 transition-transform duration-300"
+													/>
+												</a>
+											)}
+											<div class="p-4">
+												<span class="text-[10px] font-bold uppercase tracking-wider text-blue-700">
+													{relPost.data.category}
+												</span>
+												<h3 class="text-sm font-bold text-slate-900 leading-snug mt-1 line-clamp-3">
+													<a href={`/blog/${relPost.id}/`} class="hover:text-blue-700 transition-colors">
+														{relPost.data.title}
+													</a>
+												</h3>
+											</div>
+										</div>
+										<div class="px-4 pb-4 pt-2 flex items-center justify-between text-[11px] text-slate-500">
+											<span>{relPost.data.readTime}</span>
+											<a href={`/blog/${relPost.id}/`} class="font-bold text-blue-600 hover:text-blue-800">
+												Ler →
+											</a>
+										</div>
+									</article>
+								))}
+							</div>
+						</section>
+					)}
 
 					<!-- Adsterra Native Banner (Grid de Recomendações) -->
 					<div class="mt-10">
@@ -189,13 +295,35 @@ const {
 							<div class="flex flex-wrap gap-1.5">
 								{CATEGORIES.map((cat) => (
 									<a
-										href="/blog"
+										href={`/blog#${cat.slug}`}
 										class="text-xs px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors font-medium"
 									>
 										{cat.name}
 									</a>
 								))}
 							</div>
+						</div>
+
+						<!-- Artigos Mais Recentes na Sidebar -->
+						<div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs">
+							<h4 class="text-xs font-bold uppercase tracking-wider text-slate-800 mb-3">
+								Artigos Recentes
+							</h4>
+							<ul class="space-y-3">
+								{sidebarRecentPosts.map((recent) => (
+									<li class="border-b border-slate-100 last:border-none pb-2.5 last:pb-0">
+										<a
+											href={`/blog/${recent.id}/`}
+											class="text-xs font-semibold text-slate-800 hover:text-blue-700 transition-colors line-clamp-2 leading-snug"
+										>
+											{recent.data.title}
+										</a>
+										<span class="block text-[10px] text-slate-400 mt-0.5">
+											{recent.data.category} • {recent.data.readTime}
+										</span>
+									</li>
+								))}
+							</ul>
 						</div>
 
 						<!-- Banner Ferramentas / Subdomínio -->

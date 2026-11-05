@@ -7,6 +7,28 @@ import { SITE_TITLE } from '../consts';
 
 const pageTitle = `Extrator de E-mails Gratuito e Online | ${SITE_TITLE}`;
 const pageDescription = 'Extraia, filtre e organize endereços de e-mail de qualquer bloco de texto em segundos. Ferramenta gratuita, sem limites e 100% segura com processamento local.';
+
+const breadcrumbs = [
+	{ name: 'Início', url: '/' },
+	{ name: 'Ferramentas', url: '/ferramentas' },
+	{ name: 'Extrator de E-mails', url: '/extrator-de-emails' },
+];
+
+const toolSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'WebApplication',
+	name: 'Extrator de E-mails Online - Vida de Pai',
+	url: 'https://vidadepai.com.br/extrator-de-emails/',
+	description: pageDescription,
+	applicationCategory: 'UtilitiesApplication',
+	operatingSystem: 'All',
+	inLanguage: 'pt-BR',
+	offers: {
+		'@type': 'Offer',
+		price: '0',
+		priceCurrency: 'BRL',
+	},
+};
 ---
 
 <!doctype html>
@@ -15,6 +37,9 @@ const pageDescription = 'Extraia, filtre e organize endereços de e-mail de qual
 		<BaseHead
 			title={pageTitle}
 			description={pageDescription}
+			canonical="/extrator-de-emails/"
+			breadcrumbs={breadcrumbs}
+			schema={toolSchema}
 		/>
 	</head>
 	<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">

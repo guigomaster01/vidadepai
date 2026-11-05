@@ -41,8 +41,28 @@ const plannedTools = [
 <html lang="pt-BR">
 	<head>
 		<BaseHead
-			title={`Ferramentas para Pais | ${SITE_TITLE}`}
-			description="Calculadoras e aplicativos gratuitos para facilitar a rotina do pai moderno e da família."
+			title={`Calculadora de Fraldas e Ferramentas para Pais | ${SITE_TITLE}`}
+			description="Calculadora gratuita de fraldas por idade do bebê, estimativa de gastos mensais e aplicativos úteis para facilitar a rotina do pai moderno e da família."
+			breadcrumbs={[
+				{ name: 'Início', url: '/' },
+				{ name: 'Ferramentas e Calculadoras', url: '/ferramentas' },
+			]}
+			schema={{
+				'@context': 'https://schema.org',
+				'@type': 'WebApplication',
+				name: 'Calculadora de Fraldas e Custos do Bebê - Vida de Pai',
+				url: 'https://vidadepai.com.br/ferramentas/',
+				description:
+					'Descubra quantas fraldas o bebê gasta por dia e por mês em cada faixa etária (RN, P, M, G, XG) e calcule o orçamento mensal.',
+				applicationCategory: 'LifestyleApplication',
+				operatingSystem: 'All',
+				inLanguage: 'pt-BR',
+				offers: {
+					'@type': 'Offer',
+					price: '0',
+					priceCurrency: 'BRL',
+				},
+			}}
 		/>
 	</head>
 	<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">

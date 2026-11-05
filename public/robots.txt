@@ -1,0 +1,7 @@
+# robots.txt para Vida de Pai (https://vidadepai.com.br)
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://vidadepai.com.br/sitemap-index.xml
+

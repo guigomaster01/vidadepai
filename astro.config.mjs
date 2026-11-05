@@ -9,7 +9,18 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://vidadepai.com.br',
-  integrations: [mdx(), sitemap()],
+  integrations: [
+    mdx(),
+    sitemap({
+      filter: (page) => !page.includes('/ferramentas/extrator-de-emails'),
+      i18n: {
+        defaultLocale: 'pt-BR',
+        locales: {
+          'pt-BR': 'pt-BR',
+        },
+      },
+    }),
+  ],
 
   fonts: [
       {
