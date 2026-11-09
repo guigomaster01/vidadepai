@@ -1,6 +1,12 @@
 import type { AdsterraBannerConfig, AdsterraBannerSize, AdsterraNativeConfig } from './types';
 
 /**
+ * Chave geral para ativar/desativar todos os anúncios da Adsterra no site.
+ * Mantido como `false` durante a revisão do Google AdSense.
+ */
+export const ADSTERRA_ENABLED = false;
+
+/**
  * Configuração dos formatos de Banner do Adsterra para vidadepai.com.br
  */
 export const ADSTERRA_BANNERS: Record<AdsterraBannerSize, AdsterraBannerConfig> = {

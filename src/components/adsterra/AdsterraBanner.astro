@@ -1,5 +1,5 @@
 ---
-import { ADSTERRA_BANNERS } from './constants';
+import { ADSTERRA_BANNERS, ADSTERRA_ENABLED } from './constants';
 import type { AdsterraBannerSize } from './types';
 
 interface Props {
@@ -8,6 +8,7 @@ interface Props {
 	showLabel?: boolean;
 	className?: string;
 	showInDev?: boolean;
+	enabled?: boolean;
 }
 
 const {
@@ -16,6 +17,7 @@ const {
 	showLabel = true,
 	className = '',
 	showInDev = false,
+	enabled = ADSTERRA_ENABLED,
 } = Astro.props;
 
 const config = ADSTERRA_BANNERS[size];
@@ -28,6 +30,7 @@ if (!config) {
 const isProduction = !import.meta.env.DEV || showInDev;
 ---
 
+{enabled && (
 <div class={`adsterra-banner-wrapper my-6 flex flex-col items-center ${className}`}>
 	{showLabel && (
 		<div class="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5 text-center">
@@ -84,3 +87,4 @@ const isProduction = !import.meta.env.DEV || showInDev;
 		</div>
 	)}
 </div>
+)}
