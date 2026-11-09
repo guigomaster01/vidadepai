@@ -6,7 +6,7 @@ export const AUTHOR_NAME = 'Equipe Vida de Pai';
 export const CONTACT_EMAIL = 'contato@vidadepai.com.br';
 
 // Google AdSense Configuration
-export const ADSENSE_CLIENT_ID = import.meta.env.PUBLIC_ADSENSE_ID || 'ca-pub-3914232964314830';
+export const ADSENSE_CLIENT_ID = import.meta.env.PUBLIC_ADSENSE_ID || 'ca-pub-8145373553628835';
 
 // Adsterra Configuration
 export const ADSTERRA_SMARTLINK_URL = 'https://arwf.org/4/d557feb5a30191bbeec81fc08b344c0d';

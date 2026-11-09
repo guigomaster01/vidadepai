@@ -1,2 +1,2 @@
 # Arquivo ads.txt para Google AdSense - Vida de Pai
-google.com, pub-3914232964314830, DIRECT, f08c47fec0942fa0
+google.com, pub-8145373553628835, DIRECT, f08c47fec0942fa0
