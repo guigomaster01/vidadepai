@@ -1,5 +1,5 @@
 ---
-import { ADSTERRA_POPUNDER_SCRIPT } from './constants';
+import { ADSTERRA_ENABLED, ADSTERRA_POPUNDER_SCRIPT } from './constants';
 
 interface Props {
 	enabled?: boolean;
@@ -7,7 +7,7 @@ interface Props {
 }
 
 const {
-	enabled = true,
+	enabled = ADSTERRA_ENABLED,
 	showInDev = false,
 } = Astro.props;
 

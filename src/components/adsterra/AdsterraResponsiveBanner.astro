@@ -1,5 +1,6 @@
 ---
 import AdsterraBanner from './AdsterraBanner.astro';
+import { ADSTERRA_ENABLED } from './constants';
 import type { AdsterraBannerSize } from './types';
 
 interface Props {
@@ -9,6 +10,7 @@ interface Props {
 	showLabel?: boolean;
 	className?: string;
 	showInDev?: boolean;
+	enabled?: boolean;
 }
 
 const {
@@ -18,9 +20,11 @@ const {
 	showLabel = true,
 	className = '',
 	showInDev = false,
+	enabled = ADSTERRA_ENABLED,
 } = Astro.props;
 ---
 
+{enabled && (
 <div class={`adsterra-responsive-banner-wrapper ${className}`}>
 	<!-- Versão Desktop / Tablet Grande (a partir de md: 768px) -->
 	<div class="hidden md:block">
@@ -29,6 +33,7 @@ const {
 			label={label}
 			showLabel={showLabel}
 			showInDev={showInDev}
+			enabled={enabled}
 		/>
 	</div>
 
@@ -39,6 +44,8 @@ const {
 			label={label}
 			showLabel={showLabel}
 			showInDev={showInDev}
+			enabled={enabled}
 		/>
 	</div>
 </div>
+)}

@@ -1,5 +1,5 @@
 ---
-import { ADSTERRA_SMARTLINK_URL } from './constants';
+import { ADSTERRA_ENABLED, ADSTERRA_SMARTLINK_URL } from './constants';
 
 interface Props {
 	href?: string;
@@ -10,6 +10,7 @@ interface Props {
 	className?: string;
 	target?: string;
 	rel?: string;
+	enabled?: boolean;
 }
 
 const {
@@ -21,10 +22,11 @@ const {
 	className = '',
 	target = '_blank',
 	rel = 'noopener noreferrer sponsored',
+	enabled = ADSTERRA_ENABLED,
 } = Astro.props;
 ---
 
-{variant === 'button' && (
+{enabled && variant === 'button' && (
 	<a
 		href={href}
 		target={target}
@@ -35,7 +37,7 @@ const {
 	</a>
 )}
 
-{variant === 'card' && (
+{enabled && variant === 'card' && (
 	<a
 		href={href}
 		target={target}
@@ -61,7 +63,7 @@ const {
 	</a>
 )}
 
-{variant === 'badge' && (
+{enabled && variant === 'badge' && (
 	<a
 		href={href}
 		target={target}
@@ -73,7 +75,7 @@ const {
 	</a>
 )}
 
-{variant === 'link' && (
+{enabled && variant === 'link' && (
 	<a
 		href={href}
 		target={target}
