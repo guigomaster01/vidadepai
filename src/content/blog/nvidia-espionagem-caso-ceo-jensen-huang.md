@@ -1,8 +1,9 @@
 ---
 title: "Quando o CEO da NVIDIA Entra em Cena de Espionagem: Jensen Huang x A suposta Agente Chinesa"
-date: 2026-11-09
+description: "Análise do caso de espionagem envolvendo o CEO da NVIDIA e uma suposta agente chinesa, combinando seriedade e memes."
+pubDate: 2026-11-09
 author: "Vida de Pai"
-categories: [Tecnologia, Notícias]
+category: "Tecnologia"
 tags: [nvidia, alicehuang, ceonvidia, nvidiaações, ceonvidiajensenhuang, ceodanvidia, acoesnvidia, nvidaceojensenhuang, nvda, acoesnvidia]
 ---
 
