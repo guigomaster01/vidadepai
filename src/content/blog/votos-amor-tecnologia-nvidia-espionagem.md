@@ -1,8 +1,9 @@
 ---
 title: "Votos de Amor e Tecnologia: O Caso NVIDIA entre CEO e Suposta Espiã Chinesa"
-date: 2026-11-09
+description: "Análise séria da suposta espionagem da NVIDIA, comparando juramentos matrimoniais a compromissos corporativos."
+pubDate: 2026-11-09
 author: "Vida de Pai"
-categories: [Tecnologia, Notícias]
+category: "Tecnologia"
 tags: [nvidia, alicehuang, ceonvidia, nvidiaações, ceonvidiajensenhuang, ceodanvidia, acoesnvidia, nvidaceojensenhuang, nvda, acoesnvidia]
 ---
 
