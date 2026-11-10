@@ -2,6 +2,7 @@
 title: "Votos de Amor e Tecnologia: O Caso NVIDIA entre CEO e Suposta Espiã Chinesa"
 description: "Análise séria da suposta espionagem da NVIDIA, comparando juramentos matrimoniais a compromissos corporativos."
 pubDate: 2026-11-09
+heroImage: '../../assets/votos-amor-tecnologia-nvidia-espionagem-acoes.png'
 author: "Vida de Pai"
 category: "Tecnologia"
 tags: [nvidia, alicehuang, ceonvidia, nvidiaações, ceonvidiajensenhuang, ceodanvidia, acoesnvidia, nvidaceojensenhuang, nvda, acoesnvidia]
@@ -28,6 +29,9 @@ tags: [nvidia, alicehuang, ceonvidia, nvidiaações, ceonvidiajensenhuang, ceoda
 | **Aliança de Futuro** | *"Construiremos juntos um futuro compartilhado."* | *"Colaborarei para que nossos produtos continuem liderando o mercado de IA e computação gráfica."* |
 
 Essas analogias ajudam a entender como a confiança, tão central nos relacionamentos pessoais, também é a base dos acordos empresariais.
+
+![Sede corporativa da NVIDIA em Santa Clara, Califórnia](../../assets/sede-nvidia-nvidia-espionagem-votos.jpg)
+*Sede global da NVIDIA em Santa Clara (EUA): proteção à propriedade intelectual e governança exigem o mesmo compromisso de lealdade dos votos pessoais.*
 
 ### 3. Lições para Casais e Executivos
 

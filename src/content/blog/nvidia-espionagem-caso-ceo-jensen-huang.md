@@ -2,6 +2,7 @@
 title: "Quando o CEO da NVIDIA Entra em Cena de Espionagem: Jensen Huang x A suposta Agente Chinesa"
 description: "Análise do caso de espionagem envolvendo o CEO da NVIDIA e uma suposta agente chinesa, combinando seriedade e memes."
 pubDate: 2026-11-09
+heroImage: '../../assets/nvidia-espionagem-caso-ceo-jensen-huang.jpg'
 author: "Vida de Pai"
 category: "Tecnologia"
 tags: [nvidia, alicehuang, ceonvidia, nvidiaações, ceonvidiajensenhuang, ceodanvidia, acoesnvidia, nvidaceojensenhuang, nvda, acoesnvidia]
@@ -18,6 +19,9 @@ tags: [nvidia, alicehuang, ceonvidia, nvidiaações, ceonvidiajensenhuang, ceoda
 | **26/10/2026** | A empresa divulgou, em seu blog oficial, que as investigações internas identificaram um “tentativa de acesso não autorizado” e que o incidente foi contido rapidamente. | Blog NVIDIA |
 
 > **Nota:** Não existem provas de que a suposta agente tenha efetivamente obtido materiais confidenciais. O caso ainda está sob investigação de autoridades americanas e chinesas.
+
+![Jensen Huang, CEO da NVIDIA, durante apresentação oficial com sua tradicional jaqueta de couro](../../assets/jensen-huang-ceo-nvidia-palco.jpg)
+*Jensen Huang, fundador e CEO da NVIDIA, no centro das atenções após as investigações de segurança corporativa e geopolítica.*
 
 ---
 
